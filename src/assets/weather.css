@@ -1,0 +1,51 @@
+/* weather.css */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+  
+th, td {
+    border: 1px solid #1ce34b;
+    padding: 8px;
+    text-align: center;
+}
+  
+h1 {
+    text-align: center;
+    color: #4CAF50;
+}
+  
+#selectCity select{
+    height: 30px;
+    width: 80px;
+    padding: 5px;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+tbody :hover {
+    background-color: #bbbbbb;
+}
+
+option {
+    font-size: 16px;
+}
+
+.weathermodule {
+    height: 100%;
+    width: 100%; 
+    display: flex;
+    justify-content: space-between;
+}
+
+.weathermodule .weatherTable {
+    height: 100%;
+    width: 50%;
+    margin-top: 2%;
+}
+.weathermodule .weatherChart{
+    height: 100%;
+    width: 50%;
+}
+  

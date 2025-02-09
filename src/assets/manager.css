@@ -1,0 +1,76 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+  position: relative;
+}
+
+.login-register-btn{
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  padding: 10px 20px; 
+  font-size: 12px; 
+  color: #fff;
+  background-color: rgba(81, 142, 254, 0.7);
+  border: none; 
+  border-radius: 8px; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+  transition: all 0.3s ease; 
+}
+
+.login-register-btn:hover {
+  background-color: rgba(81, 124, 254, 0.9); 
+  transform: translateY(-2px);
+}
+
+.gpt-manager{
+  background-color: rgb(239, 219, 255);
+  width: 85%;
+  height: 85%;
+  border-radius: 30px;
+  display: flex;
+  margin: 0;
+}
+
+.select-mode{
+  display: flex;
+  flex-direction: column; 
+  gap: 2%; 
+  background-color: rgb(220, 181, 253);
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+  width: 20%;
+  height: 100%;
+}
+
+.model{
+  margin: 10% auto 0;
+  background-color: rgb(233, 211, 251);
+  height: 15%;
+  width: 80%;
+  border-radius: 30px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+}
+
+.model:hover{
+  background-color: rgba(81, 124, 254, 0.9); 
+}
+
+.messageBox{
+  background-color: rgb(227, 194, 255);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px;
+}
+
+.messageBox .messagewindow{
+  height: 90%;
+}
+
+
+
