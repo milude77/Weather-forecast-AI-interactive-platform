@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
-from returnInformation import *
+from returnWeatherInformation import *
+from returnManagerInformation import *
 from callGPTInterFace import *
 
 
@@ -45,6 +46,12 @@ def getGPT4o():
     max_tokens = request.form.get('max_tokens', 100)
     answertext = chat_with_gpt4o(user, text , max_tokens)
     return answertext
+
+@app.route('/api/getGPTHistory', methods=['POST'])
+def getGPTHistory() ->list:
+    user = request.form.get('user', '默认用户')
+    respone_history = returnManagerInformation(user)
+    return jsonify(respone_history)
 
 
 if __name__ == '__main__':
