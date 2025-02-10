@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
+from dotenv import load_dotenv
 from returnWeatherInformation import *
 from returnManagerInformation import *
 from callGPTInterFace import *
@@ -7,6 +8,20 @@ from callGPTInterFace import *
 
 app = Flask(__name__)
 CORS(app)
+
+load_dotenv()
+db_host = os.getenv("DB_HOST")
+db_user = os.getenv("DB_USER")
+db_password = os.getenv("DB_PASSWORD")
+db_config = {
+    'user':db_user, 
+    'password':db_password, 
+    'host': db_host,
+    'database': 'default_database', 
+}
+
+def switch_database(new_database):
+    db_config['database'] = new_database
 
 # 模拟天气数据的接口
 @app.route('/api/getDistrictweather', methods=['GET'])
@@ -50,7 +65,9 @@ def getGPT4o():
 @app.route('/api/getGPTHistory', methods=['POST'])
 def getGPTHistory() ->list:
     user = request.form.get('user', '默认用户')
-    respone_history = returnManagerInformation(user)
+    conn = mysql.connector.connect(**db_config)
+    respone_history = returnManagerInformation(conn,user)
+    conn.close()
     return jsonify(respone_history)
 
 
