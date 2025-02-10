@@ -1,3 +1,5 @@
+#获取聊天历史记录
+
 import os
 import mysql.connector
 import json
