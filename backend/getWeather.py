@@ -1,14 +1,24 @@
+#获取目标地区的天气信息
+
+import os
 import requests
 import mysql.connector
 import json
 from bs4 import BeautifulSoup
+from dotenv import load_dotenv
+
+load_dotenv()
+
+db_host = os.getenv("DB_HOST")
+db_user = os.getenv("DB_USER")
+db_password = os.getenv("DB_PASSWORD")
 
 #获取地区对应的网页码
 def storeWeatherData() -> list:
     conn = mysql.connector.connect(
-    host="localhost",          # MySQL 主机
-    user="root",      # 数据库用户名
-    password="huayuan5166",  # 数据库密码
+    host= db_host,          # MySQL 主机
+    user= db_user,      # 数据库用户名
+    password= db_password,  # 数据库密码
     database="weather"   # 数据库名称
 )
     cursor = conn.cursor()
