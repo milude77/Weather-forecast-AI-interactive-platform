@@ -21,7 +21,8 @@ def returnManagerInformation(sql_connect,user) -> list:
     JOIN cities ON cities.province_id = provinces.id
     JOIN districts ON districts.city_id = cities.id
 """)
-    return 
+    result = cursor.fetchall()
+    return result
 
 
 #插入聊天记录
