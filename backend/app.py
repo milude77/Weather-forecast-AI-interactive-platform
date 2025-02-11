@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 from returnWeatherInformation import *
 from returnManagerInformation import *
 from callGPTInterFace import *
+import mysql.connector
 
 
 app = Flask(__name__)
@@ -22,6 +23,7 @@ db_config = {
 
 def switch_database(new_database):
     db_config['database'] = new_database
+    return mysql.connector.connect(**db_config)
 
 # 模拟天气数据的接口
 @app.route('/api/getDistrictweather', methods=['GET'])
@@ -45,27 +47,27 @@ def getAllcityweather():
     return jsonify(city_data)
 
 
-@app.route('/api/getGPT3.5', methods=['POST'])
-def getGPT3_5():
+@app.route('/api/getGPTResponse', methods=['POST'])
+def getGPTResponse():
+    user_id = request.form.get('user_id', '默认用户')
+    model = request.form.get('model', 'gpt-3.5-turbo')
     user = request.form.get('user', '默认用户')
-    text = request.form.get('text', '你好，请问有什么可以帮助您？')
+    text = request.form.get('text')
     max_tokens = request.form.get('max_tokens', 100)
-    answertext = chat_with_gpt3(user, text , max_tokens)
+    datetime = request.form.get('datetime')
+    answertext = chat_with_gpt(user, text , max_tokens,model)
+    if user_id != '默认用户':
+        conn = switch_database('message')
+        insertChatRecord(conn,user_id, datetime, text, answertext, model)
+        conn.close()
     return answertext
 
-
-@app.route('/api/getGPT4o', methods=['POST'])
-def getGPT4o():
-    user = request.form.get('user', '默认用户')
-    text = request.form.get('text', '你好，请问有什么可以帮助您？')
-    max_tokens = request.form.get('max_tokens', 100)
-    answertext = chat_with_gpt4o(user, text , max_tokens)
-    return answertext
 
 @app.route('/api/getGPTHistory', methods=['POST'])
 def getGPTHistory() ->list:
+    user_id = request.form.get('user_id', '默认用户')
     user = request.form.get('user', '默认用户')
-    conn = mysql.connector.connect(**db_config)
+    conn = switch_database('message')
     respone_history = returnManagerInformation(conn,user)
     conn.close()
     return jsonify(respone_history)

@@ -1,10 +1,15 @@
 #获取聊天历史记录
-
 import os
-import mysql.connector
 import json
-from dotenv import load_dotenv
+import logging
 
+current_dir = os.path.dirname(os.path.realpath(__file__))
+
+logging.basicConfig(
+    filename=os.path.join(current_dir,"logs","error.log"),
+    level=logging.ERROR,
+    format="%(asctime)s - %(levelname)s - %(message)s" 
+)
 
 
 # 获取历史聊天信息
@@ -21,9 +26,21 @@ def returnManagerInformation(sql_connect,user) -> list:
     JOIN cities ON cities.province_id = provinces.id
     JOIN districts ON districts.city_id = cities.id
 """)
-    return 
+    result = cursor.fetchall()
+    return result
 
 
 #插入聊天记录
-def insertChatRecord(sql_connect,user,datetime,message):
-    conn = sql_connect  
+def insertChatRecord(sql_connect,user_id,datetime,message,answer,model):
+    try:
+        conn = sql_connect  
+        cursor = conn.cursor()
+        sql = "INSERT INTO message (user_id,datetime,message,answer,model) VALUES (%s,%s,%s,%s,%s)"
+        val = (user_id,datetime,message,answer,model)
+        cursor.execute(sql,val)
+        conn.commit()
+    except Exception as e:
+        logging.error(e)
+
+if __name__ == '__main__':
+    insertChatRecord(1,1,1,1,1,1)

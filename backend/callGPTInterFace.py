@@ -7,7 +7,7 @@ client = OpenAI(
 )
 
 # 调用GPT3.5-turbo模型进行聊天
-def chat_with_gpt3(user: str, text: str,max_tokens: int = 100) -> str:
+def chat_with_gpt(user: str, text: str,max_tokens: int = 100,gpt_model:str='gpt-3.5-turbo') -> str:
     chat_completion = client.chat.completions.create(
         messages=[
             {
@@ -15,25 +15,11 @@ def chat_with_gpt3(user: str, text: str,max_tokens: int = 100) -> str:
                 "content": text,
             }
         ],
-        model="gpt-3.5-turbo",
+        model = gpt_model,
         max_tokens = max_tokens
     )
     answer = chat_completion['choices'][0]['message']['content']
     return answer
 
 
-# 调用GPT-4o-mini模型进行聊天
-def chat_with_gpt4o(user: str, text: str , max_tokens: int = 100) -> str:
-    chat_completion = client.chat.completions.create(
-        messages=[
-            {
-                "role": user,
-                "content": text,
-            }
-        ],
-        model='gpt-4o-mini',
-        max_tokens = max_tokens
-    )
-    answer = chat_completion['choices'][0]['message']['content']
-    return answer
 
