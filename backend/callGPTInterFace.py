@@ -1,8 +1,12 @@
 import os
 from openai import OpenAI
+from dotenv import load_dotenv
 
+load_dotenv()
+
+API_KEY = os.getenv("GPT_API_KEY")
 client = OpenAI(
-    api_key="sk-73D1Gcc7HW8sIpKUbk4kJ0Ze4wao2hAiJjsMkQ8QoN7AmzBS",
+    api_key=API_KEY,
     base_url="https://api.chatanywhere.tech/v1"
 )
 

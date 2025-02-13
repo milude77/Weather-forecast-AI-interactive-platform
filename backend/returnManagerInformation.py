@@ -12,22 +12,15 @@ logging.basicConfig(
 )
 
 
-# 获取历史聊天信息
-def returnManagerInformation(sql_connect,user) -> list:
+# 获取历史聊天信息,通过用户ID
+def returnManagerInformation(sql_connect,user_id) -> list:
     conn = sql_connect
     cursor = conn.cursor(dict_cursor=True)
-    cursor.execute("""
-    SELECT 
-        provinces.province_name, 
-        cities.city_name, 
-        districts.district_name, 
-        districts.select_code
-    FROM provinces
-    JOIN cities ON cities.province_id = provinces.id
-    JOIN districts ON districts.city_id = cities.id
-""")
-    result = cursor.fetchall()
-    return result
+    cursor = sql_connect.cursor(dictionary=True)  # 以字典格式返回数据
+    query = "SELECT * FROM message WHERE user_id = %s ORDER BY timestamp ASC"
+    cursor.execute(query,(user_id))
+    chat_history = cursor.fetchall()
+    return chat_history
 
 
 #插入聊天记录
@@ -42,5 +35,3 @@ def insertChatRecord(sql_connect,user_id,datetime,message,answer,model):
     except Exception as e:
         logging.error(e)
 
-if __name__ == '__main__':
-    insertChatRecord(1,1,1,1,1,1)

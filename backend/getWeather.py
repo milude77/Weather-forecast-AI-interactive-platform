@@ -1,5 +1,4 @@
 #获取目标地区的天气信息
-
 import os
 import requests
 import mysql.connector

@@ -68,7 +68,7 @@ def getGPTHistory() ->list:
     user_id = request.form.get('user_id', '默认用户')
     user = request.form.get('user', '默认用户')
     conn = switch_database('message')
-    respone_history = returnManagerInformation(conn,user)
+    respone_history = returnManagerInformation(conn,user_id)
     conn.close()
     return jsonify(respone_history)
 
