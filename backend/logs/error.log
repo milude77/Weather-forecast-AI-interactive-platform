@@ -1,1 +1,57 @@
 
+2025-02-13 20:47:29,876 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.2.64:5000
+2025-02-13 20:47:29,876 - INFO - [33mPress CTRL+C to quit[0m
+2025-02-13 20:47:29,876 - INFO -  * Restarting with stat
+2025-02-13 20:47:32,401 - WARNING -  * Debugger is active!
+2025-02-13 20:47:32,401 - INFO -  * Debugger PIN: 809-152-678
+2025-02-13 20:48:45,632 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.2.64:5000
+2025-02-13 20:48:45,633 - INFO - [33mPress CTRL+C to quit[0m
+2025-02-13 20:48:45,635 - INFO -  * Restarting with stat
+2025-02-13 20:48:47,966 - WARNING -  * Debugger is active!
+2025-02-13 20:48:47,966 - INFO -  * Debugger PIN: 809-152-678
+2025-02-13 20:50:18,454 - INFO - 192.168.2.64 - - [13/Feb/2025 20:50:18] "GET /api/getAllcityweather HTTP/1.1" 200 -
+2025-02-13 20:50:20,451 - INFO - 192.168.2.64 - - [13/Feb/2025 20:50:20] "GET /api/getAllcityweather HTTP/1.1" 200 -
+2025-02-13 20:50:54,883 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.2.64:5000
+2025-02-13 20:50:54,883 - INFO - [33mPress CTRL+C to quit[0m
+2025-02-13 20:50:54,883 - INFO -  * Restarting with stat
+2025-02-13 20:50:57,238 - WARNING -  * Debugger is active!
+2025-02-13 20:50:57,244 - INFO -  * Debugger PIN: 809-152-678
+2025-02-13 20:52:11,201 - INFO -  * Detected change in 'c:\\Users\\zhanj\\my-vue-app\\backend\\app.py', reloading
+2025-02-13 20:52:11,296 - INFO -  * Restarting with stat
+2025-02-13 20:52:13,712 - WARNING -  * Debugger is active!
+2025-02-13 20:52:13,721 - INFO -  * Debugger PIN: 809-152-678
+2025-02-13 20:52:20,553 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.2.64:5000
+2025-02-13 20:52:20,553 - INFO - [33mPress CTRL+C to quit[0m
+2025-02-13 20:52:20,555 - INFO -  * Restarting with stat
+2025-02-13 20:52:22,935 - WARNING -  * Debugger is active!
+2025-02-13 20:52:22,951 - INFO -  * Debugger PIN: 809-152-678
+2025-02-13 20:54:42,186 - INFO - 127.0.0.1 - - [13/Feb/2025 20:54:42] "GET /api/getAllcityweather HTTP/1.1" 200 -
+2025-02-13 20:54:43,467 - INFO - 127.0.0.1 - - [13/Feb/2025 20:54:43] "GET /api/getAllcityweather HTTP/1.1" 200 -
+2025-02-13 20:54:44,372 - INFO - 127.0.0.1 - - [13/Feb/2025 20:54:44] "GET /api/getAllcityweather HTTP/1.1" 200 -
+2025-02-13 20:54:49,278 - INFO - 127.0.0.1 - - [13/Feb/2025 20:54:49] "GET /api/getAllcityweather HTTP/1.1" 200 -
+2025-02-13 20:54:51,798 - INFO - 127.0.0.1 - - [13/Feb/2025 20:54:51] "GET /api/getAllcityweather HTTP/1.1" 200 -
+2025-02-13 20:56:59,263 - INFO - 127.0.0.1 - - [13/Feb/2025 20:56:59] "GET /api/getAllcityweather HTTP/1.1" 200 -
+2025-02-13 20:56:59,308 - INFO - 127.0.0.1 - - [13/Feb/2025 20:56:59] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-02-13 20:58:05,390 - INFO - 127.0.0.1 - - [13/Feb/2025 20:58:05] "GET /api/getAllcityweather HTTP/1.1" 200 -
+2025-02-13 20:58:44,122 - INFO - 127.0.0.1 - - [13/Feb/2025 20:58:44] "[33mGET / HTTP/1.1[0m" 404 -
+2025-02-13 20:59:07,049 - INFO - 127.0.0.1 - - [13/Feb/2025 20:59:07] "GET /api/getAllcityweather HTTP/1.1" 200 -
+2025-02-13 20:59:38,373 - INFO - 127.0.0.1 - - [13/Feb/2025 20:59:38] "GET /api/getAllcityweather HTTP/1.1" 200 -
+2025-02-13 20:59:42,494 - INFO - 127.0.0.1 - - [13/Feb/2025 20:59:42] "GET /api/getAllcityweather HTTP/1.1" 200 -
+2025-02-13 21:00:21,776 - INFO - 127.0.0.1 - - [13/Feb/2025 21:00:21] "GET /api/getAllcityweather HTTP/1.1" 200 -
+2025-02-13 21:00:29,105 - INFO - 127.0.0.1 - - [13/Feb/2025 21:00:29] "GET /api/getAllcityweather HTTP/1.1" 200 -
+2025-02-13 21:00:30,899 - INFO - 127.0.0.1 - - [13/Feb/2025 21:00:30] "GET /api/getAllcityweather HTTP/1.1" 200 -
+2025-02-13 21:00:32,090 - INFO - 127.0.0.1 - - [13/Feb/2025 21:00:32] "GET /api/getAllcityweather HTTP/1.1" 200 -
+2025-02-13 21:00:33,330 - INFO - 127.0.0.1 - - [13/Feb/2025 21:00:33] "GET /api/getAllcityweather HTTP/1.1" 200 -
+2025-02-13 21:00:34,474 - INFO - 127.0.0.1 - - [13/Feb/2025 21:00:34] "GET /api/getAllcityweather HTTP/1.1" 200 -
