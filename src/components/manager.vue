@@ -18,7 +18,7 @@
       </div>
       <div class="messageBox">
         <div class="messagewindow"> 
-          <managerWindow model = "model"/>
+          <managerWindow :model = "model"/>
         </div>
       </div>
     </div>
@@ -33,15 +33,15 @@ export default {
     name: "GPTManager",
     data() {
       return {
-        model:"",
+        model:"gpt-3.5-turbo",
       }
     },
     methods: {
         changeModelTo4o() {
-          this.Model = "GPT-4o";
+          this.model = "GPT-4omini";
         },
         changeModelTo3o() {
-          this.Model = "GPT-3o";
+          this.model = "GPT-3.5-turbo";
         }
     },
   components: {

@@ -2,14 +2,16 @@ import axios from "axios";
 
 
 
-export const getGptResponse = async (user, problem) => {
+export const getGptResponse = async (user,problem,module) => {
     try{
-        const response = await axios.post("http://192.168.2.64:5000/api/getGPT3.5", {
+        const response = await axios.post("http://192.168.2.64:5000/api/getGPTResponse", {
             text: problem,
-            user: user,
+            user: 'user',
             max_tokens: 100,
+            model: module
         });
-        return response.data.choices[0].text;
+        console.log(response.data);
+        return response.data;
     } catch(error){
         console.log(error);
         return "Error getting GPT-3 response";

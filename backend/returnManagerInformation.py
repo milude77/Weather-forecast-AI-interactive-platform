@@ -1,9 +1,11 @@
 #获取聊天历史记录
 import os
 import json
+import logging
 
 
 current_dir = os.path.dirname(os.path.realpath(__file__))
+
 
 
 
@@ -20,12 +22,13 @@ def returnManagerInformation(sql_connect,user_id) -> list:
 
 #插入聊天记录
 def insertChatRecord(sql_connect,user_id,datetime,message,answer,model):
-
-    conn = sql_connect  
-    cursor = conn.cursor()
-    sql = "INSERT INTO message (user_id,datetime,message,answer,model) VALUES (%s,%s,%s,%s,%s)"
-    val = (user_id,datetime,message,answer,model)
-    cursor.execute(sql,val)
-    conn.commit()
+    try:
+        conn = sql_connect  
+        cursor = conn.cursor()
+        sql = "INSERT INTO message (user_id,datetime,message,answer,model) VALUES (%s,%s,%s,%s,%s)"
+        val = (user_id,datetime,message,answer,model)
+        cursor.execute(sql,val)
+    except:
+        print("Error inserting chat record")
 
 

@@ -26,7 +26,7 @@ export default {
     data() {
         return {
             user:"",
-            message_sended: '',
+            message_sended:"你好",
             messages: []
         }
     },
@@ -36,8 +36,10 @@ export default {
     methods: { 
         async sendMessage() {
             try{
-                const response = await getGptResponse(this.user,this.message)
-                console.log(response)
+                this.messages.push({text: this.message_sended, isSender: true})
+                const response = await getGptResponse(this.user,this.message_sended,this.model)
+                this.messages.push({text: response, isSender: false})
+                this.message_sended = ''
             }
             catch(error){
                 console.log(error)
@@ -56,17 +58,9 @@ export default {
     created() {
         this.messages = [
             {
-                text: '你好', isSender: true
-            },
-            {
-                text: '你好啊！', isSender: false
-            },
-            {
-                text: '嗨，很高兴认识你！', isSender: true
-            },
-            {
-                text: '哈哈，我也很高兴！', isSender: false
-            },
+                text: '你好,有什么可以帮助你', isSender: false
+            }
+
             
         ]
     },

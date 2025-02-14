@@ -9,6 +9,7 @@ import mysql.connector
 
 
 app = Flask(__name__)
+
 CORS(app)
 
 load_dotenv()
@@ -50,17 +51,20 @@ def getAllcityweather():
 
 @app.route('/api/getGPTResponse', methods=['POST'])
 def getGPTResponse():
-    user_id = request.form.get('user_id', '默认用户')
-    model = request.form.get('model', 'gpt-3.5-turbo')
-    user = request.form.get('user', '默认用户')
-    text = request.form.get('text')
-    max_tokens = request.form.get('max_tokens', 100)
+    data = request.get_json()  # 获取 JSON 数据
+    user_id = data.get('user_id', '默认用户')
+    model = data.get('model', 'gpt-3.5-turbo')
+    user = data.get('user', 'user')
+    text = data.get('text')
+    max_tokens = data.get('max_tokens', 200)
+    print(user_id, user, text, max_tokens, model)
     datetime = request.form.get('datetime')
-    answertext = chat_with_gpt(user, text , max_tokens,model)
+    answertext = chat_with_gpt(user, text,max_tokens,model)
     if user_id != '默认用户':
         conn = switch_database('message')
         insertChatRecord(conn,user_id, datetime, text, answertext, model)
         conn.close()
+    print(answertext)
     return answertext
 
 
