@@ -1,5 +1,5 @@
 <template>
-  <div v-if="cities && cities[Province] && weatherData" class="weatherForecast">
+  <div v-if="weatherData && cities[Province]" class="weatherForecast">
     <h1>天气预报</h1>
     <!-- 省市县选择框 -->
     <div id="selectCity">

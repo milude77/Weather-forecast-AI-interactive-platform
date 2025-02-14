@@ -23,7 +23,7 @@ def returnAllCityWeather() -> list:
     file_path = os.path.join('..', 'weather.json')
     with open(os.path.join(current_dir, file_path), 'r',encoding='utf-8') as f:
         weather_data = json.load(f)
-        return weather_data
+    return weather_data
 
 
 

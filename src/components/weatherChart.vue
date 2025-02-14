@@ -86,11 +86,7 @@ export default {
               }
             }
         }
-      },
-        animation: {
-          duration: 2000, // 动画时间，单位毫秒
-          easing: 'easeInOutQuad', // 缓动函数，让动画效果更加平滑
-        }
+      }
       }
     }
   },
@@ -119,13 +115,27 @@ export default {
       if (!District || this.WeatherData[District] == undefined) return;
 
       const cityWeather = this.WeatherData[District]; 
-      const regex = /(-?\d+)\/(-?\d+)℃/; 
-      const temperatures = cityWeather.map(day => day.day); 
-      const maxTemperatures = cityWeather.map(day => day.tem.match(regex)[1]);
-      const minTemperatures = cityWeather.map(day => day.tem.match(regex)[2]);
+      const regex = /-?\d+/g;
+      const days = cityWeather.map(dict => dict.day); 
+      const temperatures = cityWeather.map(dict => dict.tem);
+      const maxTemperatures = []
+      const minTemperatures = []
+
+      temperatures.forEach((tem) => {
+        const tem_list = tem.match(regex);
+        if (tem_list.length >= 2) {
+          maxTemperatures.push(tem.match(regex)[0]);
+          minTemperatures.push(tem.match(regex)[1]);
+        }
+        else {
+          maxTemperatures.push(tem_list[0]);
+          minTemperatures.push(tem_list[0]);
+        }
+      });
+
 
       this.chartData = {
-        labels: temperatures, // 日期
+        labels: days, // 日期
         datasets: [
           {
             label: '最高气温',
@@ -148,11 +158,22 @@ export default {
       if (!City || this.cities[this.Province][City] == undefined) return;
 
       const cityNameList = this.cities[this.Province][City];
-      const regex = /(-?\d+)\/(-?\d+)℃/;
       const temperatures = cityNameList.map(city => this.WeatherData[city]?.[0]?.tem);
-      const maxTemperatures = temperatures.map(tem => tem.match(regex)[1]);
-      const minTemperatures = temperatures.map(tem => tem.match(regex)[2]);
+      const regex = /-?\d+/g;
+      const maxTemperatures = []
+      const minTemperatures = []
 
+      temperatures.forEach((tem) => {
+        const tem_list = tem.match(regex);
+        if (tem_list.length >= 2) {
+          maxTemperatures.push(tem.match(regex)[0]);
+          minTemperatures.push(tem.match(regex)[1]);
+        }
+        else {
+          maxTemperatures.push(tem_list[0]);
+          minTemperatures.push(tem_list[0]);
+        }
+      });
       this.barData = {
         labels: cityNameList, // 城市名
         datasets: [
@@ -163,7 +184,7 @@ export default {
             borderColor: 'transparent',
             borderwidth: 1
             
-          } ,
+          },
           {
             label:'最低气温',
             data: minTemperatures,
@@ -177,10 +198,22 @@ export default {
     updateBarData_Province(Province) {
       if (!Province || this.cities[this.Province] == undefined || !this.WeatherData) return;
       const cityNameList = Object.keys(this.cities[Province]);
-      const regex = /(-?\d+)\/(-?\d+)℃/;
       const temperatures = cityNameList.map(city => this.WeatherData?.[city]?.[0].tem);
-      const maxTemperatures = temperatures.map(tem => tem?.match(regex)?.[1]);
-      const minTemperatures = temperatures.map(tem => tem?.match(regex)?.[2]);
+      const regex = /-?\d+/g;
+      const maxTemperatures = []
+      const minTemperatures = []
+
+      temperatures.forEach((tem) => {
+        const tem_list = tem.match(regex);
+        if (tem_list.length >= 2) {
+          maxTemperatures.push(tem.match(regex)[0]);
+          minTemperatures.push(tem.match(regex)[1]);
+        }
+        else {
+          maxTemperatures.push(tem_list[0]);
+          minTemperatures.push(tem_list[0]);
+        }
+      });
       this.barData = {
         labels: cityNameList, // 城市名
         datasets: [

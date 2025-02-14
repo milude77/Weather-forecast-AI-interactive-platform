@@ -64,7 +64,6 @@ if __name__ == "__main__":
     city_list = storeWeatherData()
     print("获取地区代码完成")
     weather_content = {}
-
     for city_name, webpage_code in city_list:
         try:
             weather_data = getWeatherData(webpage_code)
