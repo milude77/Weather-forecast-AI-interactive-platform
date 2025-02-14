@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="header">
-      <router-link to="#">
+      <router-link to="/register">
         <button class="login-register-btn">
           去登陆/注册
         </button>

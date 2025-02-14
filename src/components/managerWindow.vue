@@ -26,7 +26,7 @@ export default {
     data() {
         return {
             user:"",
-            message_sended:"你好",
+            message_sended:"",
             messages: []
         }
     },
@@ -35,6 +35,7 @@ export default {
     },
     methods: { 
         async sendMessage() {
+            if(this.message_sended.trim() === '') return
             try{
                 this.messages.push({text: this.message_sended, isSender: true})
                 const response = await getGptResponse(this.user,this.message_sended,this.model)
@@ -60,8 +61,6 @@ export default {
             {
                 text: '你好,有什么可以帮助你', isSender: false
             }
-
-            
         ]
     },
 }

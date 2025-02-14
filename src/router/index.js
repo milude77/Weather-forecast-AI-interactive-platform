@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import HomeNavigation from '@/components/home.vue';
 import WeatherForecast from '@/components/weather.vue';
 import GPTManager from '@/components/manager.vue';
+import LoginResign from '@/components/login_resign.vue';
 
 
 const routes = [
@@ -19,6 +20,11 @@ const routes = [
     path: '/gptchatmanager',
     name: 'GPTChatManager',
     component: GPTManager 
+  },
+  {
+    path: '/register',
+    name: 'Register',
+    component: LoginResign
   }
 ];
 
@@ -37,6 +43,9 @@ router.beforeEach((to, from, next) => {
       break;
     case 'GPTChatManager':
       document.body.style.background = 'linear-gradient(to bottom, #FFB6C1,#e8cefd)';  // GPTChatManager 页面背景色
+      break;
+    case 'Register':
+      document.body.style.background = 'linear-gradient(to bottom, #FFB6C1,#e8cefd)';  // Register 页面背景色
       break;
   }
   next();
