@@ -37,10 +37,11 @@ export default {
         async sendMessage() {
             if(this.message_sended.trim() === '') return
             try{
-                this.messages.push({text: this.message_sended, isSender: true, time: this.getCurrentTime()})
+                this.messages.push({text:this.message_sended, isSender: true, time: this.getCurrentTime()})
                 const response = await getGptResponse(this.user,this.message_sended,this.model)
-                this.messages.push({text: response, isSender: false, time: this.getCurrentTime()})
+                this.messages.push({text:response, isSender: false, time: this.getCurrentTime()})
                 this.message_sended = ''
+                sessionStorage.setItem('qaList', JSON.stringify(this.messages));
             }
             catch(error){
                 console.log(error)
@@ -65,13 +66,24 @@ export default {
             const seconds = String(now.getSeconds()).padStart(2, '0');
             return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
         },
+        saveQA(question,isSender,time){
+            const qaList = JSON.parse(sessionStorage.getItem('qaList')) || []
+            qaList.push({text:question, isSender: isSender, time: time})
+            sessionStorage.setItem('qaList', JSON.stringify(qaList))
+        }
     },
     created() {
-        this.messages = [
-            {
-                text: '你好,有什么可以帮助你', isSender: false , time: this.getCurrentTime()
-            }
-        ]
+        if (sessionStorage.getItem('qaList')==null) {
+            this.messages = [
+                {
+                    text: '你好,有什么可以帮助你', isSender: false , time: this.getCurrentTime()
+                }
+            ];
+            sessionStorage.setItem('qaList', JSON.stringify(this.messages));
+        }
+        else {
+            this.messages = JSON.parse(sessionStorage.getItem('qaList'));
+        }
     },
 }
 </script>
