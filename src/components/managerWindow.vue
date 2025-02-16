@@ -4,7 +4,7 @@
             <div class="avatar" v-if="!message.isSender"><img src="@/assets/img/robot.png" alt="机器人"></div>
             <div class="avatar" v-else><img src="@/assets/img/user.png" alt="uesr"></div>
             <div class="time_content">
-                <div class="time">时间</div>
+                <div class="time">{{ message.time }}</div>
                 <div class="message-content">{{ message.text }}</div>
             </div>
         </div>
@@ -37,9 +37,9 @@ export default {
         async sendMessage() {
             if(this.message_sended.trim() === '') return
             try{
-                this.messages.push({text: this.message_sended, isSender: true})
+                this.messages.push({text: this.message_sended, isSender: true, time: this.getCurrentTime()})
                 const response = await getGptResponse(this.user,this.message_sended,this.model)
-                this.messages.push({text: response, isSender: false})
+                this.messages.push({text: response, isSender: false, time: this.getCurrentTime()})
                 this.message_sended = ''
             }
             catch(error){
@@ -55,11 +55,21 @@ export default {
                 console.log(error)
             }
         },
+        getCurrentTime() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0'); // 月份从 0 开始，需要 +1
+            const day = String(now.getDate()).padStart(2, '0');
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+        },
     },
     created() {
         this.messages = [
             {
-                text: '你好,有什么可以帮助你', isSender: false
+                text: '你好,有什么可以帮助你', isSender: false , time: this.getCurrentTime()
             }
         ]
     },

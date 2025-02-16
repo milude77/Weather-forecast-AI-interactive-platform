@@ -77,6 +77,18 @@ def getGPTHistory() ->list:
     conn.close()
     return jsonify(respone_history)
 
+@app.route('/api/login', methods=['POST'])
+def login():
+    data = request.get_json()  # 获取 JSON 数据
+    email = data.get('email', '默认用户')
+    password = data.get('password', '默认密码')
+    conn = switch_database('user')
+    cursor = conn.cursor(dictionary=True)
+    query = "SELECT * FROM user WHERE email = %s AND password = %s"
+    cursor.execute(query,(email,password))
+    user_info = cursor.fetchone()
+    conn.close()
+
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
