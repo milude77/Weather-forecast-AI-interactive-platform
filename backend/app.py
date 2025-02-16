@@ -1,12 +1,13 @@
 import os
+import jwt
+import datetime
+import mysql.connector
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from dotenv import load_dotenv
 from returnWeatherInformation import *
 from returnManagerInformation import *
 from callGPTInterFace import *
-import mysql.connector
-
 
 app = Flask(__name__)
 
@@ -16,6 +17,8 @@ load_dotenv()
 db_host = os.getenv("DB_HOST")
 db_user = os.getenv("DB_USER")
 db_password = os.getenv("DB_PASSWORD")
+secret_key = os.getenv("SECRET_KEY")
+
 db_config = {
     'user':db_user, 
     'password':db_password, 
@@ -26,6 +29,7 @@ db_config = {
 def switch_database(new_database):
     db_config['database'] = new_database
     return mysql.connector.connect(**db_config)
+
 
 # 模拟天气数据的接口
 @app.route('/api/getDistrictweather', methods=['GET'])
@@ -57,7 +61,6 @@ def getGPTResponse():
     user = data.get('user', 'user')
     text = data.get('text')
     max_tokens = data.get('max_tokens', 200)
-    print(user_id, user, text, max_tokens, model)
     datetime = request.form.get('datetime')
     answertext = chat_with_gpt(user, text,max_tokens,model)
     if user_id != '默认用户':
@@ -77,9 +80,10 @@ def getGPTHistory() ->list:
     conn.close()
     return jsonify(respone_history)
 
+
 @app.route('/api/login', methods=['POST'])
 def login():
-    data = request.get_json()  # 获取 JSON 数据
+    data = request.get_json() 
     email = data.get('email', '默认用户')
     password = data.get('password', '默认密码')
     conn = switch_database('user')
@@ -88,7 +92,35 @@ def login():
     cursor.execute(query,(email,password))
     user_info = cursor.fetchone()
     conn.close()
+    if user_info:
+        payload = {
+            'user_id': user_info['user_id'],
+            'exp': datetime.datetime.now() + datetime.timedelta(hours=1)
+        }
+        token = jwt.encode(payload, secret_key, algorithm='HS256')
 
+        return jsonify({'success': True, 'token': token ,'message': '登录成功'}) , 200
+    else:
+        return jsonify({'message': '用户名或密码错误'}), 401
+
+@app.route('/api/register', methods=['POST'])
+def register():
+    data = request.get_json()  
+    email = data.get('email')       
+    password = data.get('password')
+    conn = switch_database('user')
+    cursor = conn.cursor(dictionary=True)
+    try:
+        query = "INSERT INTO user (email, password) VALUES (%s, %s)"
+        cursor.execute(query,(email,password))
+        conn.commit()
+    except mysql.connector.Error as err:
+        if err.errno == 1062:
+            return jsonify({'message': '邮箱已注册'}), 400
+        else:
+            return jsonify({'message': '注册失败'}), 500
+    conn.close()
+    return jsonify({'message': '注册成功'}), 200
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
