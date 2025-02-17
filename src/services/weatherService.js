@@ -9,7 +9,7 @@ import axios from 'axios';
  */
 export const fetchWeatherData = async (city) => {
   try {
-    const response = await axios.get('http://192.168.2.64:5000/api/getDistrictweather', {
+    const response = await axios.get('http://192.168.2.77:5000/api/getDistrictweather', {
       params: { city: city }
     });
     return response.data;  // 返回天气数据
@@ -21,7 +21,7 @@ export const fetchWeatherData = async (city) => {
 
 export const fetchWeatherAllCityData = async () => {
   try {
-    const response = await axios.get('http://192.168.2.64:5000/api/getAllcityweather');
+    const response = await axios.get('http://192.168.2.77:5000/api/getAllcityweather');
     return response.data;  // 返回天气数据
   } catch (error) {
     console.error("获取天气数据失败", error);
@@ -31,7 +31,7 @@ export const fetchWeatherAllCityData = async () => {
 
 export const fetchCityData = async () => {
   try {
-    const response = await axios.get('http://192.168.2.64:5000/api/city');
+    const response = await axios.get('http://192.168.2.77:5000/api/city');
     return response.data;  // 返回城市数据
   } catch (error) {
     console.error("获取城市数据失败", error);

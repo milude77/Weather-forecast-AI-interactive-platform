@@ -103,11 +103,6 @@ export default {
       try {
         this.weatherData = await fetchWeatherAllCityData();
         this.cities = await fetchCityData();
-        if (this.cities[this.Province] && typeof this.cities[this.Province] === 'object') {
-          console.log(Object.keys(this.cities[this.Province]));
-        } else {
-          console.error('Invalid or undefined province:', this.Province);
-        }
       } catch (error) {
         console.error("获取天气数据失败", error);
       }

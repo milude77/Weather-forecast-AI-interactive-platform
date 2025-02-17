@@ -86,7 +86,7 @@
   <script>
 
   import "@/assets/resign.css"
-
+  import { registerUser, loginUser } from "@/services/regist_login.js"
 
   export default {
     name: 'LoginResign',
@@ -106,16 +106,27 @@
       },
       handleLogin() {
         // 处理登录逻辑
-        console.log('登录邮箱:', this.loginEmail);
-        console.log('登录密码:', this.loginPassword);
-        alert('登录成功！');
+        loginUser(this.loginEmail, this.loginPassword)
+        .then((message) => {
+           alert(message.message);
+           localStorage.setItem('jwt_key',message.token);
+           this.$router.push("/gptchatmanager");
+         })
+        .catch((error) => {
+           console.error(error);
+           alert('登录失败，用户名或密码错误');
+        });
       },
       handleRegister() {
         // 处理注册逻辑
-        console.log('注册用户名:', this.registerUsername);
-        console.log('注册邮箱:', this.registerEmail);
-        console.log('注册密码:', this.registerPassword);
-        alert('注册成功！');
+        registerUser(this.registerUsername, this.registerEmail, this.registerPassword)
+        .then((message) => {
+           alert(message.message);
+         })
+        .catch((error) => {
+           console.error(error);
+           alert('注册失败！');
+          });
       },
     },
   };

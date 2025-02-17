@@ -25,13 +25,23 @@ export default {
     name: 'managerWindow',
     data() {
         return {
-            user:"",
+            user:"user",
             message_sended:"",
             messages: []
         }
     },
     props: {
         model:String
+    },
+    computed: {
+        isLogined: {
+            get() {
+                return this.modelValue;
+            },
+            set(value) {
+                this.$emit('update:modelValue', value);
+            }
+        }
     },
     methods: { 
         async sendMessage() {
@@ -73,6 +83,11 @@ export default {
         }
     },
     created() {
+        if (localStorage.getItem('jwt_key')) {
+            this.isLogined = true;
+            this.user = JSON.parse(localStorage.getItem('user_info')).username;
+            this.getCharHistory();
+        }
         if (sessionStorage.getItem('qaList')==null) {
             this.messages = [
                 {
