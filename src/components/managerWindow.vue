@@ -25,7 +25,7 @@ export default {
     name: 'managerWindow',
     data() {
         return {
-            user:"",
+            user:"user",
             message_sended:"",
             messages: []
         }

@@ -1,5 +1,6 @@
 import os
 import jwt
+import bcrypt
 import datetime
 import mysql.connector
 from flask import Flask, jsonify, request
@@ -26,9 +27,20 @@ db_config = {
     'database': 'default_database', 
 }
 
+#更改数据库连接
 def switch_database(new_database):
     db_config['database'] = new_database
     return mysql.connector.connect(**db_config)
+
+#哈希加密
+def hash_password(password):
+    salt = bcrypt.gensalt()
+    hashed_password = bcrypt.hashpw(password.encode('utf-8'), salt)
+    return hashed_password
+
+#验证密码
+def verify_password(password, hashed_password):
+    return bcrypt.checkpw(password.encode('utf-8'), hashed_password.encode('utf-8'))
 
 
 # 模拟天气数据的接口
@@ -84,40 +96,45 @@ def getGPTHistory() ->list:
 @app.route('/api/login', methods=['POST'])
 def login():
     data = request.get_json() 
-    email = data.get('email', '默认用户')
-    password = data.get('password', '默认密码')
+    email = data.get('email')
+    password = data.get('password')
     conn = switch_database('user')
     cursor = conn.cursor(dictionary=True)
-    query = "SELECT * FROM user WHERE email = %s AND password = %s"
-    cursor.execute(query,(email,password))
+    query = "SELECT * FROM users WHERE email = %s"
+    cursor.execute(query,(email,))
     user_info = cursor.fetchone()
     conn.close()
     if user_info:
-        payload = {
-            'user_id': user_info['user_id'],
-            'exp': datetime.datetime.now() + datetime.timedelta(hours=1)
-        }
-        token = jwt.encode(payload, secret_key, algorithm='HS256')
+        if verify_password(password, user_info['password']):
+            payload = {
+                'user_id': user_info['id'],
+                'exp': datetime.datetime.now() + datetime.timedelta(hours=1)
+            }
+            token = jwt.encode(payload, secret_key, algorithm='HS256')
 
-        return jsonify({'success': True, 'token': token ,'message': '登录成功'}) , 200
+            return jsonify({'success': True, 'token': token ,'message': '登录成功'}) , 200
+        else:
+            return jsonify({'message': '用户名或密码错误'}), 401
     else:
         return jsonify({'message': '用户名或密码错误'}), 401
 
 @app.route('/api/register', methods=['POST'])
 def register():
     data = request.get_json()  
+    username = data.get('username')
     email = data.get('email')       
-    password = data.get('password')
+    password = hash_password(data.get('password'))
     conn = switch_database('user')
     cursor = conn.cursor(dictionary=True)
     try:
-        query = "INSERT INTO user (email, password) VALUES (%s, %s)"
-        cursor.execute(query,(email,password))
+        query = "INSERT INTO users (email, password ,name) VALUES (%s, %s, %s)"
+        cursor.execute(query,(email,password,username))
         conn.commit()
     except mysql.connector.Error as err:
         if err.errno == 1062:
             return jsonify({'message': '邮箱已注册'}), 400
         else:
+            print(err)
             return jsonify({'message': '注册失败'}), 500
     conn.close()
     return jsonify({'message': '注册成功'}), 200

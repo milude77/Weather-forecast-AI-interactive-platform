@@ -6,7 +6,7 @@ export const getGptResponse = async (user,problem,module) => {
     try{
         const response = await axios.post("http://192.168.2.64:5000/api/getGPTResponse", {
             text: problem,
-            user: 'user',
+            user: user,
             max_tokens: 100,
             model: module
         });
