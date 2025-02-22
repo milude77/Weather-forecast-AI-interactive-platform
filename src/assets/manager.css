@@ -21,6 +21,14 @@
   transition: all 0.3s ease; 
 }
 
+.welcome-message{
+  position: absolute;
+  top: 1%;
+  right: 10%;
+  padding: 10px 20px; 
+  font-size: 20px; 
+}
+
 .login-register-btn:hover {
   background-color: rgba(81, 124, 254, 0.9); 
   transform: translateY(-2px);

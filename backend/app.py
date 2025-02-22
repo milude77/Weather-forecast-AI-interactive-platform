@@ -111,7 +111,7 @@ def login():
                 'exp': datetime.datetime.now() + datetime.timedelta(hours=1)
             }
             token = jwt.encode(payload, secret_key, algorithm='HS256')
-            return jsonify({'success': True, 'token': token ,'message': '登录成功'}) , 200
+            return jsonify({'success': True, 'token': token ,'message': '登录成功','name':user_info['name']}) , 200
         else:
             return jsonify({'message': '用户名或密码错误'}), 401
     else:

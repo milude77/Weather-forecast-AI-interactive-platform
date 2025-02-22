@@ -31,16 +31,13 @@ export default {
         }
     },
     props: {
-        model:String
-    },
-    computed: {
+        model:{
+            type: String,
+            default:'GPT-3.5-turbo'
+        },
         isLogined: {
-            get() {
-                return this.modelValue;
-            },
-            set(value) {
-                this.$emit('update:modelValue', value);
-            }
+            type: Boolean,
+            default: false
         }
     },
     methods: { 
@@ -83,11 +80,6 @@ export default {
         }
     },
     created() {
-        if (localStorage.getItem('jwt_key')) {
-            this.isLogined = true;
-            this.user = JSON.parse(localStorage.getItem('user_info')).username;
-            this.getCharHistory();
-        }
         if (sessionStorage.getItem('qaList')==null) {
             this.messages = [
                 {

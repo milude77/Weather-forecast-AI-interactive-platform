@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export const registerUser = async (username,email, password) => {
     try {
-      const response = await axios.post('http://192.168.2.77:5000/api/register', {
+      const response = await axios.post('http://192.168.31.98:5000/api/register', {
         username: username,
         email: email,
         password: password,
@@ -18,7 +18,7 @@ export const registerUser = async (username,email, password) => {
 
 export const loginUser = async (email, password) => {
     try {
-      const response = await axios.post('http://192.168.2.77:5000/api/login', {
+      const response = await axios.post('http://192.168.31.98:5000/api/login', {
         email: email,
         password: password,
       });

@@ -6,12 +6,17 @@
       :confirmAction="logToLogin"
    />
   <div class="container">
-    <div class="header">
+    <div class="header" v-if="!isLogin">
       <router-link to="/register">
         <button class="login-register-btn">
           去登陆/注册
         </button>
       </router-link>
+    </div>
+    <div class="header" v-else>
+      <div class="welcome-message">
+        欢迎，{{this.username}}
+      </div>
     </div>
     <div class="gpt-manager">
       <div class="select-mode">
@@ -24,7 +29,7 @@
       </div>
       <div class="messageBox">
         <div class="messagewindow"> 
-          <managerWindow :model = "model"/>
+          <managerWindow :model = "model" :isLogined="isLogin"/>
         </div>
       </div>
     </div>
@@ -44,7 +49,9 @@ export default {
         dialogVisible: false,
         dialogTitle: "请先登录",
         dialogContent: "4o模型需登陆后使用",
-        dialogConfirmText: "去登陆"
+        dialogConfirmText: "去登陆",
+        isLogin: sessionStorage.getItem('isLogin') === 'true' || false,
+        username: sessionStorage.getItem('username') || ''
       }
     },
     methods: {

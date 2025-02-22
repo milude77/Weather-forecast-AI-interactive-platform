@@ -109,7 +109,9 @@
         loginUser(this.loginEmail, this.loginPassword)
         .then((message) => {
            alert(message.message);
-           localStorage.setItem('jwt_key',message.token);
+           sessionStorage.setItem('jwt_key',message.token);
+           sessionStorage.setItem('username',message.name);
+           sessionStorage.setItem('isLogin',true);
            this.$router.push("/gptchatmanager");
          })
         .catch((error) => {
