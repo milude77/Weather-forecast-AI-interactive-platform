@@ -1,8 +1,12 @@
-import axios from 'axios';
+import api from "@/services/interfaceApi";
+
+
+
+
 
 export const registerUser = async (username,email, password) => {
     try {
-      const response = await axios.post('http://192.168.31.98:5000/api/register', {
+      const response = await api.post(`/register`, {
         username: username,
         email: email,
         password: password,
@@ -18,7 +22,7 @@ export const registerUser = async (username,email, password) => {
 
 export const loginUser = async (email, password) => {
     try {
-      const response = await axios.post('http://192.168.31.98:5000/api/login', {
+      const response = await api.post(`/login`, {
         email: email,
         password: password,
       });

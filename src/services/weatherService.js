@@ -1,5 +1,5 @@
-// weatherService.js
-import axios from 'axios';
+import api from "@/services/interfaceApi";
+
 
 
 /**
@@ -7,9 +7,12 @@ import axios from 'axios';
  * @param {String} city - 城市名
  * @returns {Promise} - 返回天气数据的 Promise
  */
+
+
+
 export const fetchWeatherData = async (city) => {
   try {
-    const response = await axios.get('http://192.168.31.98:5000/api/getDistrictweather', {
+    const response = await api.get(`/getDistrictweather`, {
       params: { city: city }
     });
     return response.data;  // 返回天气数据
@@ -21,7 +24,7 @@ export const fetchWeatherData = async (city) => {
 
 export const fetchWeatherAllCityData = async () => {
   try {
-    const response = await axios.get('http://192.168.31.98:5000/api/getAllcityweather');
+    const response = await api.get(`/getAllcityweather`);
     return response.data;  // 返回天气数据
   } catch (error) {
     console.error("获取天气数据失败", error);
@@ -31,7 +34,7 @@ export const fetchWeatherAllCityData = async () => {
 
 export const fetchCityData = async () => {
   try {
-    const response = await axios.get('http://192.168.31.98:5000/api/city');
+    const response = await api.get(`/city`);
     return response.data;  // 返回城市数据
   } catch (error) {
     console.error("获取城市数据失败", error);

@@ -39,7 +39,7 @@ router.beforeEach((to, from, next) => {
       document.body.style.backgroundColor = '';  // Home 页面背景色
       break;
     case 'Weather':
-      document.body.style.background = '#fff9e6';  // Weather 页面背景色
+      document.body.style.background = '#fff6bd';  // Weather 页面背景色
       break;
     case 'GPTChatManager':
       document.body.style.background = 'linear-gradient(to bottom, #FFB6C1,#e8cefd)';  // GPTChatManager 页面背景色

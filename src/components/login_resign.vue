@@ -112,6 +112,7 @@
            sessionStorage.setItem('jwt_key',message.token);
            sessionStorage.setItem('username',message.name);
            sessionStorage.setItem('isLogin',true);
+           sessionStorage.setItem('userId',message.id);
            this.$router.push("/gptchatmanager");
          })
         .catch((error) => {

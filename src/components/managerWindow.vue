@@ -45,7 +45,7 @@ export default {
             if(this.message_sended.trim() === '') return
             try{
                 this.messages.push({text:this.message_sended, isSender: true, time: this.getCurrentTime()})
-                const response = await getGptResponse(this.user,this.message_sended,this.model)
+                const response = await getGptResponse(this.user,this.message_sended,this.model,this.getCurrentTime())
                 this.messages.push({text:response, isSender: false, time: this.getCurrentTime()})
                 this.message_sended = ''
                 sessionStorage.setItem('qaList', JSON.stringify(this.messages));

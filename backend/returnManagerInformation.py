@@ -21,14 +21,16 @@ def returnManagerInformation(sql_connect,user_id) -> list:
 
 
 #插入聊天记录
-def insertChatRecord(sql_connect,user_id,datetime,message,answer,model):
+def insertChatRecord(sql_connect,user_id:int,datetime,message,sender:bool,model):
     try:
         conn = sql_connect  
         cursor = conn.cursor()
-        sql = "INSERT INTO message (user_id,datetime,message,answer,model) VALUES (%s,%s,%s,%s,%s)"
-        val = (user_id,datetime,message,answer,model)
+        sql = "INSERT INTO message (user_id,message,timestamp,is_sender,model_type) VALUES (%s,%s,%s,%s,%s)"
+        val = (user_id,message,datetime,sender,model)
         cursor.execute(sql,val)
-    except:
-        print("Error inserting chat record")
+        conn.commit()
+    except Exception as e:
+        print(e)
+        
 
 
