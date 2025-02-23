@@ -63,8 +63,12 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
 }
 
+.selected{
+  background-color: rgba(120, 152, 250, 0.9);
+}
+
 .model:hover{
-  background-color: rgba(81, 124, 254, 0.9); 
+  background-color: rgba(120, 152, 250, 0.9); 
 }
 
 .messageBox{

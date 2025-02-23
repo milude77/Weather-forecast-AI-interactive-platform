@@ -68,16 +68,17 @@ def getAllcityweather():
 @app.route('/api/getGPTResponse', methods=['POST'])
 def getGPTResponse():
     data = request.get_json()  # 获取 JSON 数据
-    user_id = data.get('user_id', '默认用户')
+    user_id = data.get('userid', None)
     model = data.get('model', 'gpt-3.5-turbo')
     user = data.get('user', 'user')
     text = data.get('text')
     max_tokens = data.get('max_tokens', 200)
-    datetime = request.form.get('datetime')
+    datetime = data.get('time')
     answertext = chat_with_gpt(user, text,max_tokens,model)
-    if user_id != '默认用户':
-        conn = switch_database('message')
-        insertChatRecord(conn,user_id, datetime, text, answertext, model)
+    if user_id :
+        conn = switch_database('user')
+        insertChatRecord(conn,user_id, datetime, text,1, model)
+        insertChatRecord(conn,user_id, datetime, answertext,0, model)
         conn.close()
     print(answertext)
     return answertext
@@ -111,7 +112,7 @@ def login():
                 'exp': datetime.datetime.now() + datetime.timedelta(hours=1)
             }
             token = jwt.encode(payload, secret_key, algorithm='HS256')
-            return jsonify({'success': True, 'token': token ,'message': '登录成功','name':user_info['name']}) , 200
+            return jsonify({'success': True, 'token': token ,'message': '登录成功','name':user_info['name'],'id':user_info['id']}) , 200
         else:
             return jsonify({'message': '用户名或密码错误'}), 401
     else:

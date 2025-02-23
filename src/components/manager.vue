@@ -20,11 +20,11 @@
     </div>
     <div class="gpt-manager">
       <div class="select-mode">
-        <button class = "gpt-4o-mode model" @click="changeModelTo4o">
+        <button :class = "['gpt-4o-mode', 'model', {'selected': this.model === 'gpt-4'}]" @click="changeModelTo4o">
           <p>GPT-4o</p>
         </button>
-        <button class = "gpt-3o-mode model" @click="changeModelTo3o">
-          <p>GPT-3o</p>
+        <button :class = "['gpt-3.5-turbo', 'model', {'selected': this.model === 'gpt-3.5-turbo'}]" @click="changeModelTo3o">
+          <p>GPT-3.5</p>
         </button>
       </div>
       <div class="messageBox">
@@ -63,7 +63,7 @@ export default {
           this.model = "gpt-4";
         },
         changeModelTo3o() {
-          this.model = "GPT-3.5-turbo";
+          this.model = "gpt-3.5-turbo";
         },
         openDialog() {
           this.dialogVisible = true;

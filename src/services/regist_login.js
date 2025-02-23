@@ -1,8 +1,13 @@
 import axios from 'axios';
 
+
+const apiUrl = "http://192.168.31.98:5000/api";
+
+
+
 export const registerUser = async (username,email, password) => {
     try {
-      const response = await axios.post('http://192.168.31.98:5000/api/register', {
+      const response = await axios.post(`${apiUrl}/register`, {
         username: username,
         email: email,
         password: password,
@@ -18,7 +23,7 @@ export const registerUser = async (username,email, password) => {
 
 export const loginUser = async (email, password) => {
     try {
-      const response = await axios.post('http://192.168.31.98:5000/api/login', {
+      const response = await axios.post(`${apiUrl}/login`, {
         email: email,
         password: password,
       });
