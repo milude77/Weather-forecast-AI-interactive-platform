@@ -4,6 +4,9 @@ import api from "@/services/interfaceApi";
 
 
 
+
+
+
 export const registerUser = async (username,email, password) => {
     try {
       const response = await api.post(`/register`, {
