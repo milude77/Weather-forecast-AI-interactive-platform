@@ -2,8 +2,8 @@
     <el-dialog v-model="visible" :title="title" :width="width">
       <span>{{ message }}</span>
       <template #footer>
-        <el-button @click="closeDialog">取消</el-button>
-        <el-button type="primary" @click="handleConfirm">确定</el-button>
+        <el-button @click="closeDialog">{{ this.cancelButtonText }}</el-button>
+        <el-button type="primary" @click="handleConfirm">{{this.confirmButtonText}}</el-button>
       </template>
     </el-dialog>
 </template>
@@ -40,6 +40,10 @@ export default {
         confirmAction: {
             type: Function,
             default: () => {}
+        },
+        cancelAction: {
+            type: Function,
+            default: () => {}
         }
     },
     computed: {
@@ -54,6 +58,8 @@ export default {
     },
     methods: {
         closeDialog() {
+            this.cancelAction();
+            this.$emit('cancel');
             this.visible = false;
         },
         confirmDialog() {
@@ -62,7 +68,7 @@ export default {
         },
         handleConfirm() {
             this.confirmAction();
-            this.closeDialog();
+            this.confirmDialog();
         }
     }
 };

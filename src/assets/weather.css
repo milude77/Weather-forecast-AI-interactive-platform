@@ -1,9 +1,13 @@
 /* weather.css */
+.weatherForecast{
+    min-height: 100vh;
+}
+
 table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
-}
+}   
   
 th, td {
     border: 1px solid #1ce34b;
@@ -12,6 +16,8 @@ th, td {
 }
   
 h1 {
+    margin-top: 0%;
+    padding-top: 0%;
     text-align: center;
     color: #4CAF50;
 }
@@ -33,8 +39,6 @@ option {
 }
 
 .weathermodule {
-    height: 100%;
-    width: 100%; 
     display: flex;
     justify-content: space-between;
 }

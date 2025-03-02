@@ -33,22 +33,6 @@ const router = createRouter({
   routes
 });
 
-router.beforeEach((to, from, next) => {
-  switch (to.name) {
-    case 'Home':
-      document.body.style.backgroundColor = '';  // Home 页面背景色
-      break;
-    case 'Weather':
-      document.body.style.background = '#fff6bd';  // Weather 页面背景色
-      break;
-    case 'GPTChatManager':
-      document.body.style.background = 'linear-gradient(to bottom, #FFB6C1,#e8cefd)';  // GPTChatManager 页面背景色
-      break;
-    case 'Register':
-      document.body.style.background = 'linear-gradient(to bottom, #FFB6C1,#e8cefd)';  // Register 页面背景色
-      break;
-  }
-  next();
-});
+
 
 export default router;

@@ -24,21 +24,35 @@ export const getGptResponse = async (user,problem,module,time) => {
                 time:time
             });
         }
-        console.log(response.data);
         return response.data;
     } catch(error){
         console.log(error);
-        return "Error getting GPT-3 response";
+        return "Error getting GPT model response";
     }
 };
 
 
-export const getCharHistory = async () => {
+export const getCharHistory = async (userid) => {
     try{
-        const response = await api.get(`/getCharHistory`);
-        return response.data.history;
+        const response = await api.post(`/getGPTHistory`,{
+            user_id: userid 
+        });
+        return response.data;
     } catch(error){
         console.log(error);
         return "Error getting character history";
+    }
+};
+
+
+export const delMessages = async (userid) => {
+    try{
+        const response = await api.post(`/delMessage`,{
+            user_id: userid 
+        });
+        return response.data.message;
+    } catch(error){
+        console.log(error);
+        return "Error deleting messages";
     }
 };

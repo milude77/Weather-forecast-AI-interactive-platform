@@ -86,9 +86,9 @@ def getGPTResponse():
 
 @app.route('/api/getGPTHistory', methods=['POST'])
 def getGPTHistory() ->list:
-    user_id = request.form.get('user_id', '默认用户')
-    user = request.form.get('user', '默认用户')
-    conn = switch_database('message')
+    data = request.get_json() 
+    user_id = data.get('user_id')
+    conn = switch_database('user')
     respone_history = returnManagerInformation(conn,user_id)
     conn.close()
     return jsonify(respone_history)
@@ -125,7 +125,7 @@ def register():
     email = data.get('email')       
     password = hash_password(data.get('password'))
     conn = switch_database('user')
-    cursor = conn.cursor(dictionary=True)
+    cursor = conn.cursor()
     try:
         query = "INSERT INTO users (email, password ,name) VALUES (%s, %s, %s)"
         cursor.execute(query,(email,password,username))
@@ -138,6 +138,15 @@ def register():
             return jsonify({'message': '注册失败'}), 500
     conn.close()
     return jsonify({'message': '注册成功'}), 200
+
+@app.route('/api/delMessage', methods=['POST'])
+def delMessage():
+    data = request.get_json()
+    user_id = data.get('user_id')
+    conn = switch_database('user')
+    delhistoryMessage(conn,user_id)
+    conn.close()
+    return jsonify({'message': '删除成功'}), 200
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
