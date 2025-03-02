@@ -1,9 +1,20 @@
 <template>
-  <custom-dialog v-model="dialogVisible" @close="closeDialog"
+  <custom-dialog v-model="logindialogVisible" @close="closeDialog('login')"
       :title="dialogTitle"
       :message="dialogContent"
       :confirmButtonText="dialogConfirmText"
       :confirmAction="logToLogin"
+   />
+   <custom-dialog v-if="isLogin" v-model="deldialogVisible" @close="closeDialog('del')" @cancel="triggerMessageDeletion()" @confirm="historyMessageDeletion()"
+      :title="'删除数据'"
+      :message="'将清除所有聊天记录！'"
+      :cancelButtonText="'删除本地数据'"
+      :confirmButtonText="'删除云端数据'"
+   />
+   <custom-dialog v-else v-model="deldialogVisible" @close="closeDialog('del')" @confirm="triggerMessageDeletion()"
+      :title="'删除数据'"
+      :message="'将清除所有聊天记录！'"
+      :confirmButtonText="'删除'"
    />
   <div class="container">
     <div class="header" v-if="!isLogin">
@@ -26,10 +37,13 @@
         <button :class = "['gpt-3.5-turbo', 'model', {'selected': this.model === 'gpt-3.5-turbo'}]" @click="changeModelTo3o">
           <p>GPT-3.5</p>
         </button>
+        <button :class="['model','clearbtn']" @click="openDialog('del')">
+          <img src="@/assets/img/huishouzhan.png" alt="回收">
+        </button>
       </div>
       <div class="messageBox">
         <div class="messagewindow"> 
-          <managerWindow :model = "model" :isLogined="isLogin"/>
+          <managerWindow ref="messageWindow" :model = "model" :isLogined="isLogin"/>
         </div>
       </div>
     </div>
@@ -40,13 +54,15 @@
 import '@/assets/manager.css';
 import managerWindow from '@/components/managerWindow.vue';
 import customDialog from '@/components/customDialog.vue';
+import {delMessages} from "@/services/gptResponse.js"
 
 export default {
     name: "GPTManager",
     data() {
       return {
         model:"gpt-3.5-turbo",
-        dialogVisible: false,
+        deldialogVisible: false,
+        logindialogVisible: false,
         dialogTitle: "请先登录",
         dialogContent: "4o模型需登陆后使用",
         dialogConfirmText: "去登陆",
@@ -57,7 +73,7 @@ export default {
     methods: {
         changeModelTo4o() {
           if (sessionStorage.getItem("jwt_key") === null) {
-            this.openDialog();
+            this.openDialog('login');
             return;
           }
           this.model = "gpt-4";
@@ -65,11 +81,29 @@ export default {
         changeModelTo3o() {
           this.model = "gpt-3.5-turbo";
         },
-        openDialog() {
-          this.dialogVisible = true;
+        triggerMessageDeletion() {
+          this.$refs.messageWindow.deleteMessage();
         },
-        closeDialog() {
-          this.dialogVisible = false;
+        historyMessageDeletion() {
+          delMessages(sessionStorage.getItem("userId"))
+          .then((message) => {
+            alert(message);
+          })
+          this.$refs.messageWindow.deleteMessage();
+        },
+        openDialog(dialogType) {
+          if (dialogType === 'login') {
+            this.logindialogVisible = true;
+          } else if (dialogType === 'del') {
+            this.deldialogVisible = true;
+          }
+        },
+        closeDialog(dialogType) {
+          if (dialogType === 'login') {
+            this.logindialogVisible = false;
+          } else if (dialogType === 'del') {
+            this.deldialogVisible = false;
+          }
         },
         logToLogin(){
           this.$router.push("/register");

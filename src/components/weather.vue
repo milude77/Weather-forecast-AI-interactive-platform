@@ -1,6 +1,6 @@
 <template>
   <div v-if="weatherData && cities[Province]" class="weatherForecast">
-    <h1>天气预报</h1>
+    <h1>辽宁地区气温图表</h1>
     <!-- 省市县选择框 -->
     <div id="selectCity">
     <select v-model="Province" @change="updateCities">
@@ -128,4 +128,8 @@ export default {
 
 <style scoped>
 /* 这里的样式会优先覆盖外部 CSS 文件中的相同样式 */
+
+body {
+  height: 100vh;
+}
 </style>

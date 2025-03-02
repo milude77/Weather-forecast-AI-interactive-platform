@@ -71,6 +71,17 @@
                 placeholder="请输入密码"
                 required
               />
+            <div>
+              <label class="block text-sm font-medium mb-2" for="register-confirm-password">确认密码</label>
+              <input
+                v-model="registerConfirmPassword"
+                type="password"
+                id="register-confirm-password"
+                class="auth-input"
+                placeholder="请确认密码"
+                required
+              />  
+            </div>
             </div>
             <button type="submit" class="auth-button">注册</button>
           </form>
@@ -98,6 +109,8 @@
         registerUsername: '',
         registerEmail: '',
         registerPassword: '',
+        registerConfirmPassword: '',
+        email_re: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
       };
     },
     methods: {
@@ -122,13 +135,25 @@
       },
       handleRegister() {
         // 处理注册逻辑
+        if (!this.email_re.test(this.registerEmail)){
+          alert('邮箱格式不正确，请重新输入');
+          return;
+        }
+        if (this.registerConfirmPassword !== this.registerPassword ){
+          alert('两次输入的密码不一致，请重新输入');
+          return;
+        }
         registerUser(this.registerUsername, this.registerEmail, this.registerPassword)
         .then((message) => {
-           alert(message.message);
+           alert(message);
          })
         .catch((error) => {
-           console.error(error);
-           alert('注册失败！');
+           if (error.response) {
+             alert('注册失败，用户名或邮箱已存在');
+           } else {
+             console.error(error);
+             alert('注册失败，请稍后再试');
+           }
           });
       },
     },

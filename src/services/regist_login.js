@@ -4,9 +4,6 @@ import api from "@/services/interfaceApi";
 
 
 
-
-
-
 export const registerUser = async (username,email, password) => {
     try {
       const response = await api.post(`/register`, {
@@ -14,11 +11,10 @@ export const registerUser = async (username,email, password) => {
         email: email,
         password: password,
       });
-      if (response.status === 200){return response.data;}
-      if (response.status === 400){return "注册邮箱已存在";}
+      if (response.status === 200){return response.data.message;}
+      
     } catch (error) {
-      console.error("请求失败:", error);
-      alert("发生错误，请稍后再试");
+      if (error.response.status === 400){return "注册失败，用户名或邮箱已存在";}
     }
   };    
 

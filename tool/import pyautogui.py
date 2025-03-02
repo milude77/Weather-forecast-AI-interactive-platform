@@ -14,7 +14,7 @@ def swipe_up():
     time.sleep(0.1)  # 按下之后稍等一会
 
     # 从屏幕中间开始上滑，向上拖动（模拟滑动动作）
-    pyautogui.moveTo(center_x, center_y - 500, duration=0.8)  # 向上滑动300像素
+    pyautogui.moveTo(center_x, center_y - 600, duration=0.8)  # 向上滑动300像素
 
     # 松开鼠标
     pyautogui.mouseUp()
