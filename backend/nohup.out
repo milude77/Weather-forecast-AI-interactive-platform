@@ -1,0 +1,90 @@
+[2025-03-08 11:34:49 +0800] [301456] [WARNING] Invalid request from ip=138.68.70.89: Invalid HTTP request line: ''
+[2025-03-08 11:35:13 +0800] [202090] [CRITICAL] WORKER TIMEOUT (pid:278231)
+[2025-03-08 11:35:13 +0800] [278231] [ERROR] Error handling request (no URI read)
+Traceback (most recent call last):
+  File "/Weather-forecast-and-GPT-chat-platform/myenv/lib/python3.10/site-packages/gunicorn/workers/sync.py", line 133, in handle
+    req = next(parser)
+  File "/Weather-forecast-and-GPT-chat-platform/myenv/lib/python3.10/site-packages/gunicorn/http/parser.py", line 41, in __next__
+    self.mesg = self.mesg_class(self.cfg, self.unreader, self.source_addr, self.req_count)
+  File "/Weather-forecast-and-GPT-chat-platform/myenv/lib/python3.10/site-packages/gunicorn/http/message.py", line 259, in __init__
+    super().__init__(cfg, unreader, peer_addr)
+  File "/Weather-forecast-and-GPT-chat-platform/myenv/lib/python3.10/site-packages/gunicorn/http/message.py", line 60, in __init__
+    unused = self.parse(self.unreader)
+  File "/Weather-forecast-and-GPT-chat-platform/myenv/lib/python3.10/site-packages/gunicorn/http/message.py", line 271, in parse
+    self.get_data(unreader, buf, stop=True)
+  File "/Weather-forecast-and-GPT-chat-platform/myenv/lib/python3.10/site-packages/gunicorn/http/message.py", line 262, in get_data
+    data = unreader.read()
+  File "/Weather-forecast-and-GPT-chat-platform/myenv/lib/python3.10/site-packages/gunicorn/http/unreader.py", line 36, in read
+    d = self.chunk()
+  File "/Weather-forecast-and-GPT-chat-platform/myenv/lib/python3.10/site-packages/gunicorn/http/unreader.py", line 63, in chunk
+    return self.sock.recv(self.mxchunk)
+  File "/Weather-forecast-and-GPT-chat-platform/myenv/lib/python3.10/site-packages/gunicorn/workers/base.py", line 204, in handle_abort
+    sys.exit(1)
+SystemExit: 1
+[2025-03-08 11:35:13 +0800] [278231] [INFO] Worker exiting (pid: 278231)
+你好！有什么可以帮助你的吗？
+你好！有什么可以帮助你的吗？
+1. 一阶泰勒公式：$$f(x) ≈ f(a) + f'(a)(x-a)$$
+
+2. 二阶泰勒公式：$$f(x) ≈ f(a) + f'(a)(x-a) + \frac{f''(a)(x-a)^2}{2}$$
+
+3. 三阶泰勒公式：$$f(x) ≈ f
+你好！有什么可以帮助你的吗？
+[2025-03-08 11:35:13 +0800] [333444] [INFO] Booting worker with pid: 333444
+[2025-03-08 12:22:58 +0800] [278234] [WARNING] Invalid request from ip=92.255.85.120: Invalid HTTP request line: '\x03\x00\x00/*à\x00\x00\x00\x00\x00Cookie: mstshash=Administr'
+[2025-03-08 12:48:27 +0800] [278234] [WARNING] Invalid request from ip=206.168.34.77: Invalid HTTP Version: (2, 0)
+[2025-03-08 12:54:39 +0800] [333444] [WARNING] Invalid request from ip=167.94.146.55: Invalid HTTP Version: (2, 0)
+[2025-03-08 15:17:24 +0800] [333444] [WARNING] Invalid request from ip=92.255.85.113: Invalid HTTP request line: '\x03\x00\x00/*à\x00\x00\x00\x00\x00Cookie: mstshash=Administr'
+[2025-03-08 18:55:13 +0800] [202090] [CRITICAL] WORKER TIMEOUT (pid:278234)
+[2025-03-08 18:55:13 +0800] [278234] [ERROR] Error handling request (no URI read)
+Traceback (most recent call last):
+  File "/Weather-forecast-and-GPT-chat-platform/myenv/lib/python3.10/site-packages/gunicorn/workers/sync.py", line 133, in handle
+    req = next(parser)
+  File "/Weather-forecast-and-GPT-chat-platform/myenv/lib/python3.10/site-packages/gunicorn/http/parser.py", line 41, in __next__
+    self.mesg = self.mesg_class(self.cfg, self.unreader, self.source_addr, self.req_count)
+  File "/Weather-forecast-and-GPT-chat-platform/myenv/lib/python3.10/site-packages/gunicorn/http/message.py", line 259, in __init__
+    super().__init__(cfg, unreader, peer_addr)
+  File "/Weather-forecast-and-GPT-chat-platform/myenv/lib/python3.10/site-packages/gunicorn/http/message.py", line 60, in __init__
+    unused = self.parse(self.unreader)
+  File "/Weather-forecast-and-GPT-chat-platform/myenv/lib/python3.10/site-packages/gunicorn/http/message.py", line 274, in parse
+    line, rbuf = self.read_line(unreader, buf, self.limit_request_line)
+  File "/Weather-forecast-and-GPT-chat-platform/myenv/lib/python3.10/site-packages/gunicorn/http/message.py", line 326, in read_line
+    self.get_data(unreader, buf)
+  File "/Weather-forecast-and-GPT-chat-platform/myenv/lib/python3.10/site-packages/gunicorn/http/message.py", line 262, in get_data
+    data = unreader.read()
+  File "/Weather-forecast-and-GPT-chat-platform/myenv/lib/python3.10/site-packages/gunicorn/http/unreader.py", line 36, in read
+    d = self.chunk()
+  File "/Weather-forecast-and-GPT-chat-platform/myenv/lib/python3.10/site-packages/gunicorn/http/unreader.py", line 63, in chunk
+    return self.sock.recv(self.mxchunk)
+  File "/Weather-forecast-and-GPT-chat-platform/myenv/lib/python3.10/site-packages/gunicorn/workers/base.py", line 204, in handle_abort
+    sys.exit(1)
+SystemExit: 1
+[2025-03-08 18:55:13 +0800] [278234] [INFO] Worker exiting (pid: 278234)
+数字图像处理是一种利用计算机技术对数字图像进行处理和分析的方法。它涵盖了从图像获取、存储、传输到处理、分析和识别等多个方面。数字图像处理可以应用在很多领域，比如医学影像学、人脸识别、安全监控、图
+[2025-03-08 18:55:13 +0800] [348852] [INFO] Booting worker with pid: 348852
+[2025-03-08 19:23:02 +0800] [202090] [CRITICAL] WORKER TIMEOUT (pid:301456)
+[2025-03-08 19:23:02 +0800] [301456] [ERROR] Error handling request (no URI read)
+Traceback (most recent call last):
+  File "/Weather-forecast-and-GPT-chat-platform/myenv/lib/python3.10/site-packages/gunicorn/workers/sync.py", line 133, in handle
+    req = next(parser)
+  File "/Weather-forecast-and-GPT-chat-platform/myenv/lib/python3.10/site-packages/gunicorn/http/parser.py", line 41, in __next__
+    self.mesg = self.mesg_class(self.cfg, self.unreader, self.source_addr, self.req_count)
+  File "/Weather-forecast-and-GPT-chat-platform/myenv/lib/python3.10/site-packages/gunicorn/http/message.py", line 259, in __init__
+    super().__init__(cfg, unreader, peer_addr)
+  File "/Weather-forecast-and-GPT-chat-platform/myenv/lib/python3.10/site-packages/gunicorn/http/message.py", line 60, in __init__
+    unused = self.parse(self.unreader)
+  File "/Weather-forecast-and-GPT-chat-platform/myenv/lib/python3.10/site-packages/gunicorn/http/message.py", line 274, in parse
+    line, rbuf = self.read_line(unreader, buf, self.limit_request_line)
+  File "/Weather-forecast-and-GPT-chat-platform/myenv/lib/python3.10/site-packages/gunicorn/http/message.py", line 326, in read_line
+    self.get_data(unreader, buf)
+  File "/Weather-forecast-and-GPT-chat-platform/myenv/lib/python3.10/site-packages/gunicorn/http/message.py", line 262, in get_data
+    data = unreader.read()
+  File "/Weather-forecast-and-GPT-chat-platform/myenv/lib/python3.10/site-packages/gunicorn/http/unreader.py", line 36, in read
+    d = self.chunk()
+  File "/Weather-forecast-and-GPT-chat-platform/myenv/lib/python3.10/site-packages/gunicorn/http/unreader.py", line 63, in chunk
+    return self.sock.recv(self.mxchunk)
+  File "/Weather-forecast-and-GPT-chat-platform/myenv/lib/python3.10/site-packages/gunicorn/workers/base.py", line 204, in handle_abort
+    sys.exit(1)
+SystemExit: 1
+[2025-03-08 19:23:02 +0800] [301456] [INFO] Worker exiting (pid: 301456)
+[2025-03-08 19:23:02 +0800] [349835] [INFO] Booting worker with pid: 349835

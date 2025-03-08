@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://192.168.31.98:5000/api',
+  baseURL: 'http://115.120.237.110:5000/api',
 });
 
 // 创建拦截器，在请求头中添加token

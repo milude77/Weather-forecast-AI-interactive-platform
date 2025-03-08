@@ -3,6 +3,7 @@ import os
 import requests
 import mysql.connector
 import json
+import datetime
 from bs4 import BeautifulSoup
 from dotenv import load_dotenv
 
@@ -11,6 +12,12 @@ load_dotenv()
 db_host = os.getenv("DB_HOST")
 db_user = os.getenv("DB_USER")
 db_password = os.getenv("DB_PASSWORD")
+
+fixed_directory = "/Weather-forecast-and-GPT-chat-platform"
+
+os.makedirs(fixed_directory, exist_ok=True)
+
+file_path = os.path.join(fixed_directory, "weather.json")
 
 #获取地区对应的网页码
 def storeWeatherData() -> list:
@@ -68,10 +75,12 @@ if __name__ == "__main__":
         try:
             weather_data = getWeatherData(webpage_code)
             weather_content[city_name] = weather_data
-            print(f"{city_name} 成功获取")
-        except:
+            #print(f"{city_name} 成功获取")
+        except error as e:  
             print(f"{city_name} 获取失败")
-    with open("weather.json", "w", encoding="utf-8") as f:
+    with open(file_path, "w", encoding="utf-8") as f:
+        now_time = datetime.datetime.now()
+        print(f"更新时间 {now_time}")
         json.dump(weather_content, f, ensure_ascii=False)
         
         
