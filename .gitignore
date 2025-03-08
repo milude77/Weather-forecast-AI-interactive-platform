@@ -3,6 +3,7 @@ node_modules
 /dist
 
 .env
+logs
 myenv/
 
 # Log files
