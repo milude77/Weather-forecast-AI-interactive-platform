@@ -49,6 +49,6 @@ jobs:
 
       - name: Deploy to server
         run: |
-          scp -r dist/* root@115.120.237.110:ssh:/Weather-forecast-and-GPT-chat-platform
+          scp -r dist/* root@115.120.237.110:/Weather-forecast-and-GPT-chat-platform
 
 
