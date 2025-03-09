@@ -47,18 +47,6 @@ jobs:
       - name: Build project
         run: npm run build  # 构建 Vue 项目
      
-      - name: Add server to known hosts
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_KNOWN_HOSTS }}" >> ~/.ssh/known_hosts
-      
-      - name: Set up SSH
-        uses: webfactory/ssh-agent@v0.7.0
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: Deploy to server
-        run: |
-           scp -r dist root@115.120.237.110:~/Weather-forecast-and-GPT-chat-platform
 
 
