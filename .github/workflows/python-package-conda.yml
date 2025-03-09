@@ -47,4 +47,8 @@ jobs:
       - name: Build project
         run: npm run build  # 构建 Vue 项目
 
+      - name: Deploy to server
+        run: |
+          scp -r dist/* root@115.120.237.110:ssh:/Weather-forecast-and-GPT-chat-platform
+
 
