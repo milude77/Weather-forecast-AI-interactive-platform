@@ -1,19 +1,67 @@
-name: GitHub Actions Demo
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
-on: [push]
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main  # 只在 main 分支推送时触发
+  pull_request:
+    branches:
+      - main  # 在 main 分支的 PR 时触发
+
 jobs:
-  Explore-GitHub-Actions:
+  # Python 后端任务
+  backend:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
-      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
-      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
-      - name: Check out repository code
+      - name: Checkout code
         uses: actions/checkout@v4
-      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
-      - run: echo "🖥️ The workflow is now ready to test your code on the runner."
-      - name: List files in the repository
-        run: |
-          ls ${{ github.workspace }}
-      - run: echo "🍏 This job's status is ${{ job.status }}."
 
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'  # 指定 Python 版本
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run tests
+        run: |
+          pytest  # 运行 Python 测试
+
+      - name: Build Docker image (optional)
+        run: |
+          docker build -t my-python-app .
+        if: github.ref == 'refs/heads/main'  # 只在 main 分支构建 Docker 镜像
+
+      - name: Deploy to server (optional)
+        run: |
+          ssh user@server 'cd /path/to/project && git pull && docker-compose up -d'
+        if: github.ref == 'refs/heads/main'  # 只在 main 分支部署
+
+  # Vue 前端任务
+  frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'  # 指定 Node.js 版本
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm test  # 运行前端测试
+
+      - name: Build project
+        run: npm run build  # 构建 Vue 项目
+
+      - name: Deploy to server (optional)
+        run: |
+          scp -r dist/* user@server:/var/www/html  # 将构建文件部署到服务器
+        if: github.ref == 'refs/heads/main'  # 只在 main 分支部署
