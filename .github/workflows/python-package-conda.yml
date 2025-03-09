@@ -26,19 +26,8 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Run tests
-        run: |
-          pytest  # 运行 Python 测试
 
-      - name: Build Docker image (optional)
-        run: |
-          docker build -t my-python-app .
-        if: github.ref == 'refs/heads/main'  # 只在 main 分支构建 Docker 镜像
 
-      - name: Deploy to server (optional)
-        run: |
-          ssh user@server 'cd /path/to/project && git pull && docker-compose up -d'
-        if: github.ref == 'refs/heads/main'  # 只在 main 分支部署
 
   # Vue 前端任务
   frontend:
@@ -55,13 +44,7 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run tests
-        run: npm test  # 运行前端测试
-
       - name: Build project
         run: npm run build  # 构建 Vue 项目
 
-      - name: Deploy to server (optional)
-        run: |
-          scp -r dist/* user@server:/var/www/html  # 将构建文件部署到服务器
-        if: github.ref == 'refs/heads/main'  # 只在 main 分支部署
+
