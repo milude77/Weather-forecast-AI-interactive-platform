@@ -54,7 +54,7 @@ jobs:
           PASSWORD: '@Huayuanh5166'
           DESTINATION: /Weather-forecast-and-GPT-chat-platform/dist
         run: |
-          sshpass -p "$PASSWORD" scp -o StrictHostKeyChecking=no dist/* $USERNAME@$HOST:$DESTINATION
+          sshpass -p "$PASSWORD" scp -r -o StrictHostKeyChecking=no dist $USERNAME@$HOST:$DESTINATION
            
 
 
