@@ -47,18 +47,15 @@ jobs:
       - name: Build project
         run: npm run build  # 构建 Vue 项目
 
-      - name: Copy file via SCP
+      - name: Copy files via SCP with password
         env:
           HOST: 115.120.237.110
           USERNAME: root
-          SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          DESTINATION: /Weather-forecast-and-GPT-chat-platform  # 目标服务器上的路径
+          PASSWORD: '@Huayuanh5166'
+          DESTINATION: /Weather-forecast-and-GPT-chat-platform
         run: |
-          mkdir -p ~/.ssh
-          echo "$SSH_KEY" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          scp -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa dist/* $USERNAME@$HOST:$DESTINATION
-     
+          sshpass -p "$PASSWORD" scp -o StrictHostKeyChecking=no dist/* $USERNAME@$HOST:$DESTINATION
+           
 
 
 
