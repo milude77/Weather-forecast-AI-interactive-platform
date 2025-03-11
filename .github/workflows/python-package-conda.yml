@@ -54,7 +54,7 @@ jobs:
           PASSWORD: 'huayuan5166'
           DESTINATION: /Weather-forecast-and-GPT-chat-platform
         run: |
-          sshpass -p "$PASSWORD" scp -r -o StrictHostKeyChecking=no dist $USERNAME@$HOST:$DESTINATION
+          sshpass -p "$PASSWORD" ssh -o StrictHostKeyChecking=no $USERNAME@$HOST "cd $DESTINATION && npm run build"
            
 
 
