@@ -28,7 +28,7 @@
 
 
 export default {
-  name: 'App',
+  name: 'HomeNavigation',
 
 };
 </script>
