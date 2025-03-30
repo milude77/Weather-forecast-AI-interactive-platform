@@ -1,11 +1,13 @@
 <template>
-    <div class="manager-window" ref="chatWindow">
-        <div v-for="(message, index) in messages" :key="index" :class="['message',message.is_sender?'sender':'receiver']">
-            <div class="avatar" v-if="!message.is_sender"><img src="@/assets/img/robot.png" alt="机器人"></div>
-            <div class="avatar" v-else><img src="@/assets/img/user.png" alt="uesr"></div>
-            <div class="time_content">
-                <div class="time">{{ message.timestamp }}</div>
-                <div class="message-content">{{ message.message }}</div>
+    <div class="manager-window-container" >
+        <div class="manager-window" ref="chatWindow" >
+            <div v-for="(message, index) in messages" :key="index" :class="['message',message.is_sender?'sender':'receiver']">
+                <div class="avatar" v-if="!message.is_sender"><img src="@/assets/img/robot.png" alt="机器人"></div>
+                <div class="avatar" v-else><img src="@/assets/img/user.png" alt="uesr"></div>
+                <div class="time_content">
+                    <div class="time">{{ message.timestamp }}</div>
+                    <div class="message-content">{{ message.message }}</div>
+                </div>
             </div>
         </div>
     </div>
@@ -17,10 +19,7 @@
 
 <script>
 
-import "@/assets/managerWindow.css"
 import { getGptResponse , getCharHistory} from "@/services/gptResponse.js"
-
-
 
 
 export default {
@@ -100,7 +99,52 @@ export default {
             this.messages = [
                 {
                     message: '你好,有什么可以帮助你', is_sender: false , timestamp: this.getCurrentTime()
-                }
+                },
+                {
+                    message: '你好,有什么可以帮助你', is_sender: true , timestamp: this.getCurrentTime()
+                },
+                {
+                    message: '你好,有什么可以帮助你', is_sender: false , timestamp: this.getCurrentTime()
+                },
+                {
+                    message: '你好,有什么可以帮助你', is_sender: false , timestamp: this.getCurrentTime()
+                },
+                {
+                    message: '你好,有什么可以帮助你', is_sender: false , timestamp: this.getCurrentTime()
+                },
+                {
+                    message: '你好,有什么可以帮助你', is_sender: false , timestamp: this.getCurrentTime()
+                },
+                {
+                    message: '你好,有什么可以帮助你', is_sender: false , timestamp: this.getCurrentTime()
+                },
+                {
+                    message: '你好,有什么可以帮助你', is_sender: false , timestamp: this.getCurrentTime()
+                },
+                {
+                    message: '你好,有什么可以帮助你', is_sender: false , timestamp: this.getCurrentTime()
+                },
+                {
+                    message: '你好,有什么可以帮助你', is_sender: false , timestamp: this.getCurrentTime()
+                },
+                {
+                    message: '你好,有什么可以帮助你', is_sender: false , timestamp: this.getCurrentTime()
+                },
+                {
+                    message: '你好,有什么可以帮助你', is_sender: false , timestamp: this.getCurrentTime()
+                },
+                {
+                    message: '你好,有什么可以帮助你', is_sender: false , timestamp: this.getCurrentTime()
+                },
+                {
+                    message: '你好,有什么可以帮助你', is_sender: false , timestamp: this.getCurrentTime()
+                },
+                {
+                    message: '你好,有什么可以帮助你', is_sender: false , timestamp: this.getCurrentTime()
+                },
+                {
+                    message: '你好,有什么可以帮助你', is_sender: false , timestamp: this.getCurrentTime()
+                },
             ];
             sessionStorage.setItem('qaList', JSON.stringify(this.messages));
         }
@@ -120,4 +164,10 @@ export default {
 </script>
 
 <style>
+.manager-window-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 85%;
+}
 </style>

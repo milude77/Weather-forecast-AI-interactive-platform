@@ -1,29 +1,45 @@
 <template>
-  <van-nav-bar title="天气查询" />
-  <van-search v-model="city" placeholder="请输入城市名称" />
-  <van-cell-group>
-    <van-cell title="当前城市" :value="weather.city" />
-    <van-cell title="温度" :value="weather.temperature + '°C'" />
-    <van-cell title="天气状况" :value="weather.condition" />
-  </van-cell-group>
+  <div class="mobile-home">
+    <van-nav-bar title="主页" fixed placeholder/>
+    <van-button class="nav-button" round block type="info" @click="navigateToWeather">天气查询</van-button>
+    <van-button class="nav-button" round block type="primary" @click="navigateToChat">GPT聊天</van-button>
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'HomeNavigation',
-  data() {
-    return {
-      city: '',
-      weather: {
-        city: '北京',
-        temperature: 25,
-        condition: '晴',
-      },
-    };
-  },
-};
+  name:'HomeNavigation',
+  methods: {
+    navigateToWeather() {
+      this.$router.push('/weather');
+    },
+    navigateToChat() {
+      this.$router.push('/gptchatmanager');
+    }
+  }
+}
 </script>
 
-<style>
-/* 移动端专属样式 */
+<style scoped>
+.mobile-home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f0f8ff;
+}
+
+.nav-button {
+  margin: 15px 0;
+  width: 80%;
+}
+
+.van-nav-bar {
+  background-color: #42b983;
+}
+
+.van-nav-bar__title {
+  color: white;
+}
 </style>

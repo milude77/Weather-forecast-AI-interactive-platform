@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import HomeNavigation from '@/mobilecomponents/home.vue';
-import WeatherForecast from '@/components/weather.vue';
-import GPTManager from '@/components/manager.vue';
-import LoginResign from '@/components/login_resign.vue';
+import WeatherForecast from '@/mobilecomponents/weather.vue';
+import GPTManager from '@/mobilecomponents/manager.vue';
+import LoginResign from '@/mobilecomponents/login_resign.vue';
 
 
 const routes = [
