@@ -11,7 +11,7 @@ client = OpenAI(
 )
 
 # 调用GPT模型进行聊天
-def chat_with_gpt(user: str, text: str,max_tokens: int = 100,gpt_model:str='gpt-3.5-turbo') -> str:
+def chat_with_gpt(user: str, text: str,gpt_model:str='gpt-3.5-turbo') -> str:
     chat_completion = client.chat.completions.create(
         messages=[
             {
@@ -20,7 +20,6 @@ def chat_with_gpt(user: str, text: str,max_tokens: int = 100,gpt_model:str='gpt-
             }
         ],
         model = gpt_model,
-        max_tokens = max_tokens
     )
     answer = chat_completion.choices[0].message.content
     return answer

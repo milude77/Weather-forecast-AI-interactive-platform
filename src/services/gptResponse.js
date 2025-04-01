@@ -10,7 +10,6 @@ export const getGptResponse = async (user,problem,module,time) => {
             response = await api.post(`/getGPTResponse`, {
                 text: problem,
                 user: user,
-                max_tokens: 100,
                 model: module,
             });
         }
@@ -18,7 +17,6 @@ export const getGptResponse = async (user,problem,module,time) => {
             response = await api.post(`/getGPTResponse`, {
                 text: problem,
                 user: user,
-                max_tokens: 100,
                 model: module,
                 userid: userid,
                 time:time

@@ -72,9 +72,8 @@ def getGPTResponse():
     model = data.get('model', 'gpt-3.5-turbo')
     user = data.get('user', 'user')
     text = data.get('text')
-    max_tokens = data.get('max_tokens', 200)
     datetime = data.get('time')
-    answertext = chat_with_gpt(user, text,max_tokens,model)
+    answertext = chat_with_gpt(user, text,model)
     if user_id :
         conn = switch_database('user')
         insertChatRecord(conn,user_id, datetime, text,1, model)

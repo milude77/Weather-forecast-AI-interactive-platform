@@ -131,7 +131,7 @@ export default {
 
 .mobile-header {
   top: 0;
-  height: 10%;
+  height: 5%;
   width: 100%;
   display: flex;
   justify-content: space-between;

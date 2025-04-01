@@ -6,7 +6,7 @@
                 <div class="avatar" v-else><img src="@/assets/img/user.png" alt="uesr"></div>
                 <div class="time_content">
                     <div class="time">{{ message.timestamp }}</div>
-                    <div class="message-content">{{ message.message }}</div>
+                    <div class="message-content" v-html="formatMessage(message.message)" @click="handleCopy"></div>
                 </div>
             </div>
         </div>
@@ -20,6 +20,10 @@
 <script>
 
 import { getGptResponse , getCharHistory} from "@/services/gptResponse.js"
+import { marked } from 'marked';
+import hljs from 'highlight.js';
+import 'highlight.js/styles/github.css'; // 选择代码高亮主题
+import DOMPurify from 'dompurify';
 
 
 export default {
@@ -92,6 +96,46 @@ export default {
         deleteMessage(){
             sessionStorage.removeItem('qaList')
             this.messages = []
+        },
+        formatMessage(rawText) {
+            marked.setOptions({
+                highlight: (code, lang) => {
+                const validLang = hljs.getLanguage(lang) ? lang : 'plaintext';
+                return hljs.highlight(validLang, code).value;
+                },
+                renderer: new marked.Renderer({
+                    code(code, lang, escaped) {
+                        const langLabel = lang || 'text';
+                        return `
+                        <div class="code-block">
+                            <div class="code-header">
+                            <span class="lang-label">${langLabel}</span>
+                            <button class="copy-btn" data-lang="${langLabel}">Copy</button>
+                            </div>
+                            <pre><code class="hljs language-${lang}">${escaped ? code : hljs.highlightAuto(code).value}</code></pre>
+                        </div>
+                        `;
+                    }
+                })
+            });
+
+            return DOMPurify.sanitize(marked(rawText || ''));
+        },
+        handleCopy(e) {
+            if (e.target.classList.contains('copy-btn')) {
+                const codeBlock = e.target.closest('.code-block');
+                const code = codeBlock?.querySelector('code')?.innerText;
+                
+                if (code) {
+                navigator.clipboard.writeText(code).then(() => {
+                    const originalText = e.target.textContent;
+                    e.target.textContent = 'Copied!';
+                    setTimeout(() => {
+                    e.target.textContent = originalText;
+                    }, 2000);
+                });
+                }
+            }
         }
     },
     created() {
@@ -100,51 +144,7 @@ export default {
                 {
                     message: '你好,有什么可以帮助你', is_sender: false , timestamp: this.getCurrentTime()
                 },
-                {
-                    message: '你好,有什么可以帮助你', is_sender: true , timestamp: this.getCurrentTime()
-                },
-                {
-                    message: '你好,有什么可以帮助你', is_sender: false , timestamp: this.getCurrentTime()
-                },
-                {
-                    message: '你好,有什么可以帮助你', is_sender: false , timestamp: this.getCurrentTime()
-                },
-                {
-                    message: '你好,有什么可以帮助你', is_sender: false , timestamp: this.getCurrentTime()
-                },
-                {
-                    message: '你好,有什么可以帮助你', is_sender: false , timestamp: this.getCurrentTime()
-                },
-                {
-                    message: '你好,有什么可以帮助你', is_sender: false , timestamp: this.getCurrentTime()
-                },
-                {
-                    message: '你好,有什么可以帮助你', is_sender: false , timestamp: this.getCurrentTime()
-                },
-                {
-                    message: '你好,有什么可以帮助你', is_sender: false , timestamp: this.getCurrentTime()
-                },
-                {
-                    message: '你好,有什么可以帮助你', is_sender: false , timestamp: this.getCurrentTime()
-                },
-                {
-                    message: '你好,有什么可以帮助你', is_sender: false , timestamp: this.getCurrentTime()
-                },
-                {
-                    message: '你好,有什么可以帮助你', is_sender: false , timestamp: this.getCurrentTime()
-                },
-                {
-                    message: '你好,有什么可以帮助你', is_sender: false , timestamp: this.getCurrentTime()
-                },
-                {
-                    message: '你好,有什么可以帮助你', is_sender: false , timestamp: this.getCurrentTime()
-                },
-                {
-                    message: '你好,有什么可以帮助你', is_sender: false , timestamp: this.getCurrentTime()
-                },
-                {
-                    message: '你好,有什么可以帮助你', is_sender: false , timestamp: this.getCurrentTime()
-                },
+                
             ];
             sessionStorage.setItem('qaList', JSON.stringify(this.messages));
         }
@@ -169,5 +169,53 @@ export default {
     flex-direction: column;
     justify-content: center;
     height: 85%;
+}
+.avatar {
+    min-width: 35px;
+}
+
+.message-content {
+  max-width: 100%; /* 限制最大宽度 */
+  overflow-wrap: break-word; /* 允许长单词/代码换行 */
+}
+
+/* 针对代码块的特殊处理 */
+.message-content pre {
+  white-space: pre-wrap; 
+  max-width: 100%;
+  overflow-x: auto; 
+  background: #2d2f3b;
+  border-radius: 6px;
+  padding: 5px;
+  color: #e2e2e2;
+}
+
+
+
+/* 复制按钮 */
+.copy-btn {
+  background: none;
+  border: 1px solid #afb8c1;
+  border-radius: 4px;
+  padding: 2px 8px;
+  font-size: 0.8em;
+  cursor: pointer;
+  color: #24292f;
+  transition: all 0.2s;
+}
+
+.copy-btn:hover {
+  background: #ffffff80;
+}
+
+/* 代码内容 */
+.code-block pre {
+  margin: 0;
+}
+
+/* 高亮样式继承 */
+.code-block code.hljs {
+  background: transparent;
+  padding: 0;
 }
 </style>

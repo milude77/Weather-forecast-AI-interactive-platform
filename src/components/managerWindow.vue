@@ -5,7 +5,7 @@
             <div class="avatar" v-else><img src="@/assets/img/user.png" alt="uesr"></div>
             <div class="time_content">
                 <div class="time">{{ message.timestamp }}</div>
-                <div class="message-content">{{ message.message }}</div>
+                <div class="message-content" v-html="formatMessage(message.message)" @click="handlecopy"></div>
             </div>
         </div>
     </div>
@@ -19,6 +19,10 @@
 
 import "@/assets/managerWindow.css"
 import { getGptResponse , getCharHistory} from "@/services/gptResponse.js"
+import { marked } from 'marked';
+import hljs from 'highlight.js';
+import 'highlight.js/styles/github.css'; // 选择代码高亮主题
+import DOMPurify from 'dompurify';
 
 
 
@@ -46,7 +50,7 @@ export default {
     methods: { 
         async sendMessage() {
             if (this.issending) {return}
-            if(this.message_sended.trim() === '') return
+            if (this.message_sended.trim() === '') return
             this.issending = true
             try{
                 this.messages.push({message:this.message_sended, is_sender: true, timestamp: this.getCurrentTime()})
@@ -61,10 +65,10 @@ export default {
                 console.log(error)
             }
             this.$nextTick(() => {
-            const chatWindow = this.$refs.chatWindow;
-            chatWindow.scrollTop = chatWindow.scrollHeight;
-            this.issending = false
-        });
+                const chatWindow = this.$refs.chatWindow;
+                chatWindow.scrollTop = chatWindow.scrollHeight;
+                this.issending = false
+            });
         },
         async getCharHistory() {
             try{
@@ -93,6 +97,46 @@ export default {
         deleteMessage(){
             sessionStorage.removeItem('qaList')
             this.messages = []
+        },
+        formatMessage(rawText) {
+            marked.setOptions({
+                highlight: (code, lang) => {
+                const validLang = hljs.getLanguage(lang) ? lang : 'plaintext';
+                    return hljs.highlight(validLang, code).value;
+                },
+                renderer: new marked.Renderer({
+                    code(code, lang, escaped) {
+                        const langLabel = lang || 'text';
+                        return `
+                        <div class="code-block">
+                            <div class="code-header">
+                            <span class="lang-label">${langLabel}</span>
+                            <button class="copy-btn" data-lang="${langLabel}">Copy</button>
+                            </div>
+                            <pre><code class="hljs language-${lang}">${escaped ? code : hljs.highlightAuto(code).value}</code></pre>
+                        </div>
+                        `;
+                    }
+                })
+            });
+
+            return DOMPurify.sanitize(marked(rawText || ''));
+        },
+        handleCopy(e) {
+            if (e.target.classList.contains('copy-btn')) {
+                const codeBlock = e.target.closest('.code-block');
+                const code = codeBlock?.querySelector('code')?.innerText;
+                
+                if (code) {
+                navigator.clipboard.writeText(code).then(() => {
+                    const originalText = e.target.textContent;
+                    e.target.textContent = 'Copied!';
+                    setTimeout(() => {
+                    e.target.textContent = originalText;
+                    }, 2000);
+                });
+                }
+            }
         }
     },
     created() {

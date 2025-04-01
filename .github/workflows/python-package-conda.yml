@@ -45,15 +45,3 @@ jobs:
         run: npm install
 
 
-      - name: build file 
-        env:
-          HOST: 115.120.237.110
-          USERNAME: root
-          PASSWORD: 'huayuan5166'
-          DESTINATION: /Weather-forecast-and-GPT-chat-platform
-        run: |
-          sshpass -p "$PASSWORD" ssh -o StrictHostKeyChecking=no $USERNAME@$HOST "cd $DESTINATION && npm run build"
-           
-
-
-
