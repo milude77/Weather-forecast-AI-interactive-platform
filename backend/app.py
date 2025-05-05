@@ -6,7 +6,7 @@ import mysql.connector
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from dotenv import load_dotenv
-from returnWeatherInformation import *
+from returnInformation import *
 from returnManagerInformation import *
 from callGPTInterFace import *
 

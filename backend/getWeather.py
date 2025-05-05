@@ -9,7 +9,9 @@ from bs4 import BeautifulSoup
 from dotenv import load_dotenv
 
 
-fixed_directory = "/Weather-forecast-and-GPT-chat-platform"
+current_directory = os.path.dirname(os.path.abspath(__file__))  
+fixed_directory = os.path.join(current_directory, "..")
+file_path = os.path.join(fixed_directory,"datafile","weather.json")
 
 env_path = os.path.join(fixed_directory,'config','mysql_config.env')
 load_dotenv(dotenv_path=env_path)
@@ -21,7 +23,7 @@ db_password = os.getenv("DB_PASSWORD")
 
 os.makedirs(fixed_directory, exist_ok=True)
 
-file_path = os.path.join(fixed_directory, "weather.json")
+
 
 #获取地区对应的网页码
 def storeWeatherData() -> list:
