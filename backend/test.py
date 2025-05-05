@@ -7,6 +7,4 @@ from dotenv import load_dotenv
 from time import sleep
 
 
-for i in range(1, 1000):
-    sleep(0.1)
-    print(f"\r{i}/1000",end="")
+print(current_dir = os.path.dirname(os.path.realpath(__file__)))
