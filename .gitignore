@@ -2,7 +2,7 @@
 node_modules
 /dist
 
-.env
+*.env
 logs
 .venv
 
@@ -27,3 +27,6 @@ test.py
 #dateFile
 weather.json
 city.json
+
+#config
+/config
