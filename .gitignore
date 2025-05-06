@@ -2,12 +2,10 @@
 node_modules
 /dist
 
-*.env
+
 logs
 .venv
 
-config
-backend
 
 #testFile
 backend/test.py
