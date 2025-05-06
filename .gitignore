@@ -2,6 +2,7 @@
 node_modules
 /dist
 
+*.env
 logs
 .venv
 
@@ -26,4 +27,5 @@ pnpm-debug.log*
 #dateFile
 /dateFile
 
-
+#config
+/config
