@@ -6,8 +6,11 @@ node_modules
 logs
 .venv
 
+config
+backend
+
 #testFile
-test.py
+backend/test.py
 
 # Log files
 npm-debug.log*
@@ -24,8 +27,4 @@ pnpm-debug.log*
 *.sln
 *.sw?
 
-#dateFile
-/dateFile
 
-config/mysql_config.env
-config/openai_key.env
